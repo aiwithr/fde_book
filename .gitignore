@@ -4,3 +4,6 @@ __pycache__/
 .cache/
 .DS_Store
 Thumbs.db
+writing_style.md
+writing_style*.md
+
