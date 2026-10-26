@@ -45,12 +45,22 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/raqueeb
-    - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/raqueeb/
+    - icon: fontawesome/brands/medium
+      link: https://medium.com/@raqueeb
+    - icon: fontawesome/brands/facebook-messenger
+      link: http://m.me/raqueeb
+    - icon: fontawesome/brands/whatsapp
+      link: tel:+8801713095767
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/raqueeb
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/raqueeb/
+    - icon: fontawesome/brands/instagram
+      link: https://instagram.com/raqueeb
     - icon: fontawesome/brands/facebook
       link: https://facebook.com/raqueeb
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@raqueeb
 
 markdown_extensions:
   - abbr
