@@ -1,0 +1,107 @@
+site_name: ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল
+site_url: https://aiwithr.github.io/fde_book/
+repo_url: https://github.com/aiwithr/fde_book
+repo_name: aiwithr/fde_book
+site_author: Rakibul Hassan (রকিবুল হাসান)
+site_description: >-
+  ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। লোকাল মডেল, অন-প্রেম অটোমেশন এবং ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। By Rakibul Hassan.
+copyright: "সৃজনশীল লাইসেন্সিং ২০২৪ - ২০২৬ &copy; Rakibul Hassan (রকিবুল হাসান) &middot; <a href='https://aiwithr.github.io/'>aiwithr.github.io</a>"
+edit_uri: ""
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: bn
+  palette:
+    scheme: default
+    primary: indigo
+    accent: indigo
+  font:
+    text: SiyamRupali
+    code: SiyamRupali
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    - navigation.footer
+  include_search_page: true
+  search_index_only: true
+
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/mermaid-loader.js
+
+plugins:
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/raqueeb
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/raqueeb/
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/raqueeb
+    - icon: fontawesome/brands/facebook
+      link: https://facebook.com/raqueeb
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - "হোম": "index.md"
+  - "মাস্টার ব্লুপ্রিন্ট": "fde-field-manual.md"
+  - "ইন্ট্রোডাকশন: গ্রাউন্ড রিয়েলিটি": "intro/index.md"
+  - "চ্যাপ্টার ১: ফিল্ড ডিসকভারি ও এসওপি": "chapter-1/index.md"
+  - "চ্যাপ্টার ২: লোকাল আর্কিটেকচার": "chapter-2/index.md"
+  - "চ্যাপ্টার ৩: দ্য নিউ এসডিএলসি": "chapter-3/index.md"
+  - "চ্যাপ্টার ৪: ফিল্ড প্লেবুক": "chapter-4/index.md"
+  - "চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং": "chapter-5/index.md"
+  - "কনক্লুশন ও হ্যান্ডওভার": "conclusion/index.md"
+  - "অ্যাপেন্ডিক্স ও চেকলিস্ট": "appendix/index.md"

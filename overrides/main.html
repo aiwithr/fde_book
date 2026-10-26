@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <!-- Core SEO & Identity -->
+  <meta name="author" content="Rakibul Hassan (রকিবুল হাসান)">
+  <meta name="creator" content="Rakibul Hassan">
+  <meta name="publisher" content="Rakibul Hassan">
+  <meta name="keywords" content="Forward Deployed Engineering, FDE, Field Engineering, Rakibul Hassan, local LLM, SLM, on-premise AI, enterprise automation, ISP NOC automation, self-healing CI/CD, Qwen 2.5, SDLC">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="FDE Field Manual">
+  <meta property="og:type" content="book">
+  <meta property="og:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | FDE Field Manual - Forward Deployed Engineering{% else %}ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল | By Rakibul Hassan{% endif %}">
+  <meta property="og:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% else %}ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। লোকাল মডেল, অন-প্রেম অটোমেশন এবং ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক।{% endif %}">
+  <meta property="og:url" content="{{ page.canonical_url }}">
+  <meta property="og:locale" content="bn_BD">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@raqueeb">
+  <meta name="twitter:creator" content="@raqueeb">
+  <meta name="twitter:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | FDE Field Manual{% else %}ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল | By Rakibul Hassan{% endif %}">
+  <meta name="twitter:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% else %}ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি।{% endif %}">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল",
+    "url": "https://aiwithr.github.io/fde_book/",
+    "author": {
+      "@type": "Person",
+      "name": "Rakibul Hassan",
+      "alternateName": ["রকিবুল হাসান", "raqueeb"],
+      "url": "https://aiwithr.github.io/"
+    },
+    "inLanguage": "bn",
+    "genre": "Software Engineering, Enterprise Architecture, AI",
+    "description": "ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) ফিল্ড ম্যানুয়াল: ল্যাব ছেড়ে ফিল্ডের রিয়েল ক্যাওসে সফটওয়্যার টিকিয়ে রাখার ব্যবহারিক গাইড।"
+  }
+  </script>
+{% endblock %}
