@@ -22,6 +22,7 @@
 * **লেখক:** রকিবুল হাসান (Rakibul Hassan)
 * **লাইভ বুক সাইট:** [https://aiwithr.github.io/fde_book/](https://aiwithr.github.io/fde_book/)
 * **অফিশিয়াল গিটহাব রিপোজিটরি:** [https://github.com/aiwithr/fde_book](https://github.com/aiwithr/fde_book) (শাখা: `main`, সত্যের মূল উৎস: GitHub Pages)
+* **অফিশিয়াল কমপ্যানিয়ন কোড রিপোজিটরি:** [https://github.com/raqueeb/fdebook_companion](https://github.com/raqueeb/fdebook_companion) (`companion-code/` ফোল্ডার)
 * **লেখকের রিসোর্স, পরিচিতি ও প্রিন্ট মিডিয়া পোর্টাল:**
   * আমার লেখা বিভিন্ন রিসোর্স: [https://aiwithr.github.io/resources/](https://aiwithr.github.io/resources/)
   * আমি কে (লেখক পরিচিতি): [https://aiwithr.github.io/about/](https://aiwithr.github.io/about/)
@@ -79,17 +80,31 @@ fde_book/
 │   ├── chapter-5/index.md              # চ্যাপ্টার ৫: এফডিই অর্গ ও ফিল্ড-টু-কোর লুপ
 │   ├── conclusion/index.md             # কনক্লুশন: হ্যান্ডওভার ও হাইপার-কেয়ার
 │   └── appendix/index.md               # অ্যাপেন্ডিক্স: ফিল্ড চেকলিস্ট ও গাইড
-├── companion-code/                     # সরাসরি রান করার মতো প্র্যাকটিক্যাল ল্যাব কোড
-│   ├── ch02-local-triage-engine/       # লোকাল ট্রায়াজ ইঞ্জিন (Ollama + Qwen 2.5)
+├── companion-code/                     # সরাসরি রান করার মতো প্র্যাকটিক্যাল ল্যাব কোড (raqueeb/fdebook_companion)
+│   ├── intro-silent-churn/             # সাইলেন্ট চর্ন ও শ্যাডো আইটি ডিটেক্টর
+│   │   └── detect_silent_abandonment.py
+│   ├── ch01-field-discovery/           # ফিল্ড বটলনেক ও ওটিপি এসএলএ ট্র্যাকার
+│   │   ├── bottleneck_analyzer.py
+│   │   └── otp_sla_tracker.py
+│   ├── ch02-local-triage-engine/       # লোকাল ট্রায়াজ ইঞ্জিন ও SQLite WAL কিউ
+│   │   ├── sqlite_wal_queue.py
 │   │   ├── triage.py
 │   │   └── mock_tickets.json
-│   ├── ch03-resilient-pipeline/        # ইভ্যাল হারনেস ও সেলফ-হিলিং সিআই/সিডি
+│   ├── ch03-resilient-pipeline/        # ডোমেইন স্প্রিন্ট ভ্যাট, ইভ্যাল হারনেস ও সিআই/সিডি
+│   │   ├── domain_sprint_vat.py
 │   │   ├── eval_harness.py
 │   │   └── .github/workflows/field-deploy.yml
 │   ├── ch04-isp-routing-worker/        # আইএসপি টিকিট রাউটিং সিস্টেম
 │   │   └── worker.py
-│   └── ch04-supply-chain-reconciler/   # চট্টগ্রাম পোর্ট ইনভয়েস রিকনসিলার
-│       └── audit.py
+│   ├── ch04-supply-chain-reconciler/   # চট্টগ্রাম পোর্ট ইনভয়েস রিকনসিলার ও ম্যানেজার রিপোর্ট
+│   │   ├── audit.py
+│   │   └── manager_hero_report.py
+│   ├── ch05-org-scaling/               # ফিল্ড-টু-কোর ইঞ্জিন ও কুইক-উইন স্কোরার
+│   │   ├── field_to_core_module.py
+│   │   └── quick_win_scorer.py
+│   └── conclusion-handover/            # অটোমেটেড হেলথ চেক ও হাইপার-কেয়ার ওয়াচডগ
+│       ├── health_check.py
+│       └── hypercare_watchdog.py
 ├── instructions/                       # লেখার নিয়মাবলি ও হ্যান্ডঅফ ডকুমেন্টেশন
 │   ├── writing_style.md                # রাইটিং স্টাইল গাইড
 │   ├── handoff.md                      # নতুন মডেলের জন্য হ্যান্ডঅফ ফাইল
@@ -131,10 +146,10 @@ fde_book/
 
 #### ৬. অধ্যায় ৩: দ্য নিউ এসডিএলসি ও রেজিলিয়েন্ট পাইপলাইন (`docs/chapter-3/index.md`)
 * **স্ট্যাটাস:** সম্পন্ন (৩৫ পৃষ্ঠা বাজেট)।
-* **মূল বিষয়:** এআই কোডিং এজেন্টস (Cline) দিয়ে ক্লায়েন্ট সাইটে দ্রুত ও নিরাপদ কোডিং, ভাইব কোডিং ঠেকানোর কঠোর গার্ডরেল, সেলফ-হিলিং সিআই/সিডি রোলব্যাক পাইপলাইন।
+* **মূল বিষয়:** এআই কোডিং এজেন্ট (ডিপসিক, ওপেনকোড হারনেস, ক্লাইন) দিয়ে ক্লায়েন্ট সাইটে দ্রুত ও নিরাপদ কোডিং, ভাইব কোডিং ঠেকানোর কঠোর গার্ডরেইল, সেলফ-হিলিং সিআই/সিডি রোলব্যাক পাইপলাইন।
 * **প্লেবুক সংযোজনী:** সেকশন ৪ - বিল্ডের আগেই ইভ্যালুয়েশন হারনেস (Evaluation Harness Before Build) এবং ২০ লাইনের মেটাবলিজম ইভ্যাল স্ক্রিপ্ট (`evaluate_triage_model`)।
 
-#### ৭. অধ্যায় ৪: ফিল্ড প্লেবুক ইন অ্যাকশন - বাস্তব কেস স্টাডিজ (`docs/chapter-4/index.md`)
+#### ৭. অধ্যায় ৪: ফিল্ড প্লেবুক ইন অ্যাকশন - বাস্তব কেস স্টাডি (`docs/chapter-4/index.md`)
 * **স্ট্যাটাস:** সম্পন্ন (৪৫ পৃষ্ঠা বাজেট)।
 * **মূল বিষয়:** 
   * কেস স্টাডি ১: ঢাকার আইএসপি ফাইবার কাট টিকিট অটোমেশন ও অ্যাসিনক্রোনাস ওয়েবহুক রাউটার (`worker.py`)।

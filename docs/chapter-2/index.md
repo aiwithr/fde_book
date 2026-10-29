@@ -57,6 +57,46 @@
 ২. লোকাল সার্ভারে চলা ছোট এলএলএম (`Ollama`) সেই টেক্সট পড়ে বুঝে নেবে মেসেজটা কোন ক্যাটাগরির এবং কতটা আর্জেন্ট।
 ৩. মডেল থেকে বের হওয়া পরিষ্কার `JSON` ডেটা সরাসরি লোকাল ডেটাবেজে সেভ হবে এবং চ্যাপ্টার ১-এ বানানো সেই ওটিপি বা নোটিফিকেশন চ্যানেলে অ্যাকশন ট্রিগার করবে।
 
+#### কোড-স্যান্ডউইচ মেথড: ক্যাফকা ছাড়াই `SQLite WAL` হাই-কনকারেন্সি লোকাল কিউ
+
+**১. কাস্টমারের বাস্তব সংকট:** ক্লায়েন্টের ৩২ জিবি র‍্যামের লোকাল সার্ভারে ক্যাফকা (Kafka) বা রেডিসের মতো ভারী মেসেজ ব্রোকার বসালে র‍্যাম ফুরিয়ে যায় এবং মেইনটেন্যান্সের ঝামেলা বাড়ে। অথচ একসাথে দশজন স্টাফ এন্ট্রি দিলে এবং ব্যাকগ্রাউন্ডে এআই ওয়ার্কার ডেটা পড়লে যেন `Database is locked` এরর না আসে, সেই ব্যবস্থা দরকার।
+
+**২. মূল কোড:** নিচের ষোলো লাইনের পাইথন কোডটি কোনো এক্সটার্নাল সার্ভার ছাড়াই বিল্ট-ইন `sqlite3`-তে `WAL` মোড চালু করে নন-ব্লকিং লোকাল মেসেজ কিউ তৈরি করে:
+
+```python
+# FDE On-Prem Engine: Zero-Dependency SQLite WAL Concurrent Queue
+import sqlite3, os
+
+def init_local_wal_queue(db_path: str = "fde_queue.db") -> sqlite3.Connection:
+    conn = sqlite3.connect(db_path, timeout=10.0)
+    # ১. WAL মোড চালু: রিড এবং রাইট একসাথে কোনো লক ছাড়াই চলবে
+    conn.execute("PRAGMA journal_mode=WAL;")
+    # ২. ডিস্ক সিঙ্ক অপ্টিমাইজেশন: ক্র্যাশ-সেফ থেকেও ৩ গুণ দ্রুত রাইট স্পিড
+    conn.execute("PRAGMA synchronous=NORMAL;")
+    conn.execute("""CREATE TABLE IF NOT EXISTS ticket_queue (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, raw_msg TEXT, status TEXT DEFAULT 'PENDING'
+    )""")
+    return conn
+
+# ফিল্ড টেস্ট: লোকাল কিউতে মেসেজ ইনসার্ট ও স্ট্যাটাস যাচাই
+db = init_local_wal_queue()
+db.execute("INSERT INTO ticket_queue (raw_msg) VALUES (?)", ("চালানে ওজনের গরমিল",))
+mode = db.execute("PRAGMA journal_mode;").fetchone()[0]
+print(f"Queue Mode: {mode.upper()} | Pending Tickets: {db.execute('SELECT count(*) FROM ticket_queue').fetchone()[0]}")
+```
+
+**৩. সিস্টেমের বাস্তব ইমপ্যাক্ট ও কোডের ব্যাখ্যা:** স্ক্রিপ্টটা রান করলে আউটপুটে দেখবেন:
+
+```text
+Queue Mode: WAL | Pending Tickets: 1
+```
+
+কোডটার ভেতরের দুটো `PRAGMA` লাইন যেকোনো অন-প্রেম ইঞ্জিনিয়ারের জন্য সোনার খনি:
+* **`PRAGMA journal_mode=WAL;`:** এই একটা কমান্ডেই SQLite-এর আচরণ বদলে যায়। এখন নতুন মেসেজ এলে মূল ডেটাবেজ ফাইল লক না করে পাশের `-wal` ফাইলে অ্যাপেন্ড হতে থাকে। ফলে একদিকে দশজন স্টাফ যখন ড্যাশবোর্ড রিফ্রেশ করছেন, ঠিক সেই মুহূর্তে ব্যাকগ্রাউন্ডের এআই ওয়ার্কার কোনো বাধা ছাড়াই নতুন টিকিট প্রসেস করতে পারে।
+* **`PRAGMA synchronous=NORMAL;`:** ডিফল্ট `FULL` মোডে প্রতিটা ট্রানজ্যাকশনের পর হার্ডডিস্কের মেকানিক্যাল হেড থামা পর্যন্ত অপেক্ষা করা হয়। `WAL` মোডের সাথে `NORMAL` ব্যবহার করলে ডেটা পুরোপুরি নিরাপদ থাকে, কিন্তু ডিস্কে লেখার গতি তিন-চার গুণ বেড়ে যায়।
+
+**৪. গিটহাব রেফারেন্স:** সম্পূর্ণ লোকাল কিউ ও ট্রায়াজ পাইপলাইন পাবেন অফিশিয়াল কমপ্যানিয়ন রিপোজিটরিতে: [https://github.com/raqueeb/fdebook_companion](https://github.com/raqueeb/fdebook_companion)।
+
 ---
 
 ### ৪. ভিজ্যুয়াল আর্কিটেকচার: অন-প্রেম ইন্টেলিজেন্স পাইপলাইন
@@ -166,7 +206,7 @@ print(json.dumps(triage_customer_ticket(sample_msg), indent=2, ensure_ascii=Fals
 
 সেদিন বিকেলে হেড অ্যাকাউন্ট্যান্ট সাহেব আপনার মনিটরের দিকে অবাক হয়ে তাকিয়ে ছিলেন। টেবিলের নিচের সেই ধুলোমাখা পিসিটা থেকেই যে এই জাদু ঘটছে, তা তিনি বিশ্বাসই করতে পারছিলেন না।
 
-**৪. গিটহাব রেফারেন্স:** সম্পূর্ণ ট্রায়াজ ইঞ্জিন এবং টেস্ট করার জন্য ৫০টি মক টিকিটের ডেটাসেট (`mock_tickets.json`) পাবেন বইয়ের অফিশিয়াল রিপোজিটরিতে: [https://github.com/aiwithr/fde_book](https://github.com/aiwithr/fde_book)।
+**৪. গিটহাব রেফারেন্স:** সম্পূর্ণ ট্রায়াজ ইঞ্জিন এবং টেস্ট করার জন্য ৫০টি মক টিকিটের ডেটাসেট (`mock_tickets.json`) পাবেন বইয়ের অফিশিয়াল কমপ্যানিয়ন রিপোজিটরিতে: [https://github.com/raqueeb/fdebook_companion](https://github.com/raqueeb/fdebook_companion)।
 
 ---
 
@@ -180,7 +220,9 @@ print(json.dumps(triage_customer_ticket(sample_msg), indent=2, ensure_ascii=Fals
 
 ---
 
-!!! question "কথা বলতে চান?"
+!!! question "আমার সাথে কথা বলতে চান?"
     আমাকে WhatsApp এ মেসেজ করতে পারেন: [+8801713095767](https://wa.me/+8801713095767)। আমি যেহেতু রোবট, কল থেকে মেসেজেই বেশি অভ্যস্ত। আমার সব আলাপ [মিডিয়াম](https://medium.com/@raqueeb), [ফেসবুক](https://www.facebook.com/raqueeb) আর [লিংকডইনে](https://www.linkedin.com/in/raqueeb/) পাবেন। ভিডিও দেখতে চাইলে আছে [ইউটিউব](https://www.youtube.com/@raqueeb)।
 
     আমার মাথায় আর কী কী ঘোরে, সেটাও পাবেন [এখানে](https://medium.com/@raqueeb/print-media-write-ups-2024-25-f2896ce92f7b)।
+
+    এখানে পাবেন আমার লেখা [বিভিন্ন রিসোর্স](https://aiwithr.github.io/resources/), [আমি কে](https://aiwithr.github.io/about/) এবং প্রিন্ট মিডিয়াতে আমার [কিছু লেখা](https://aiwithr.github.io/print/)।

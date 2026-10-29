@@ -22,16 +22,16 @@
 
 ## ২. গিটহাব ল্যাব ও কমপ্যানিয়ন কোড চালানোর গাইড
 
-বইয়ের প্রতিটা চ্যাপ্টারের কোড যাতে আপনি নিজের ল্যাপটপে বিনা খরচে (কোনো পেইড ক্লাউড বা এপিআই কি ছাড়াই) চালিয়ে দেখতে পারেন, সেজন্য অফিশিয়াল গিটহাব রিপোজিটরিতে সবগুলো স্ক্রিপ্ট ও মক ডেটা সাজিয়ে রাখা হয়েছে।
+বইয়ের প্রতিটা চ্যাপ্টারের কোড যাতে আপনি নিজের ল্যাপটপে বিনা খরচে (কোনো পেইড ক্লাউড বা এপিআই কি ছাড়াই) চালিয়ে দেখতে পারেন, সেজন্য অফিশিয়াল কমপ্যানিয়ন গিটহাব রিপোজিটরিতে ([https://github.com/raqueeb/fdebook_companion](https://github.com/raqueeb/fdebook_companion)) সবগুলো স্ক্রিপ্ট ও মক ডেটা সাজিয়ে রাখা হয়েছে।
 
-### ধাপ ১: রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ
+### ধাপ ১: কমপ্যানিয়ন রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ
 
 আপনার কম্পিউটারে `Python 3.10+` এবং `Git` ইনস্টল থাকলে টার্মিনাল বা পাওয়ারশেলে নিচের কমান্ডগুলো চালান:
 
 ```bash
-# ১. অফিশিয়াল গিটহাব রিপোজিটরি ক্লোন করুন
-git clone https://github.com/aiwithr/fde_book.git
-cd fde_book
+# ১. অফিশিয়াল কমপ্যানিয়ন কোড রিপোজিটরি ক্লোন করুন
+git clone https://github.com/raqueeb/fdebook_companion.git
+cd fdebook_companion
 
 # ২. আলাদা ভার্চুয়াল এনভায়রনমেন্ট তৈরি ও চালু করুন
 python3 -m venv .venv
@@ -49,20 +49,34 @@ ollama pull qwen2.5:1.5b
 
 ### ধাপ ৩: চ্যাপ্টারভিত্তিক কমপ্যানিয়ন স্ক্রিপ্ট রান করা
 
-রিপোজিটরির `companion-code/` ফোল্ডারের ভেতর প্রতিটা চ্যাপ্টারের কোড আলাদা ডিরেক্টরিতে রাখা আছে:
+রিপোজিটরির ভেতর প্রতিটা চ্যাপ্টারের কোড আলাদা ডিরেক্টরিতে রাখা আছে:
 
 ```bash
-# চ্যাপ্টার ২: লোকাল এলএলএম কাস্টমার টিকিট ট্রায়াজ ইঞ্জিন
-python3 companion-code/ch02-local-triage-engine/triage.py
+# ইন্ট্রোডাকশন: সাইলেন্ট চর্ন ও শ্যাডো আইটি ডিটেক্টর
+python3 intro-silent-churn/detect_silent_abandonment.py
 
-# চ্যাপ্টার ৩: গোল্ডেন ডেটাসেট ইভ্যালুয়েশন হারনেস টেস্টবেঞ্চ
-python3 companion-code/ch03-resilient-pipeline/eval_harness.py
+# চ্যাপ্টার ১: ফিল্ড বটলনেক ডায়াগনস্টিক ও ওটিপি এসএলএ ট্র্যাকার
+python3 ch01-field-discovery/bottleneck_analyzer.py
+python3 ch01-field-discovery/otp_sla_tracker.py
 
-# চ্যাপ্টার ৪ (ট্র্যাক এ): অ্যাসিনক্রোনাস আইএসপি ফাইবার কাট রাউটিং ওয়ার্কার
-python3 companion-code/ch04-isp-routing-worker/worker.py
+# চ্যাপ্টার ২: SQLite WAL লোকাল কিউ ও লোকাল এলএলএম টিকিট ট্রায়াজ ইঞ্জিন
+python3 ch02-local-triage-engine/sqlite_wal_queue.py
+python3 ch02-local-triage-engine/triage.py
 
-# চ্যাপ্টার ৪ (ট্র্যাক বি): চট্টগ্রাম পোর্ট থ্রি-ওয়ে ইনভয়েস রিকনসিলার
-python3 companion-code/ch04-supply-chain-reconciler/audit.py
+# চ্যাপ্টার ৩: ডোমেইন স্প্রিন্ট ভ্যাট ইঞ্জিন ও গোল্ডেন ইভ্যালুয়েশন হারনেস
+python3 ch03-resilient-pipeline/domain_sprint_vat.py
+python3 ch03-resilient-pipeline/eval_harness.py
+
+# চ্যাপ্টার ৪ (ট্র্যাক এ ও বি): আইএসপি রাউটিং ওয়ার্কার, পোর্ট রিকনসিলার ও ম্যানেজার সামারি
+python3 ch04-isp-routing-worker/worker.py
+python3 ch04-supply-chain-reconciler/audit.py
+python3 ch04-supply-chain-reconciler/manager_hero_report.py
+
+# চ্যাপ্টার ৫ ও কনক্লুশন: ফিল্ড-টু-কোর ইঞ্জিন, কুইক-উইন স্কোরার ও হেলথ চেক ওয়াচডগ
+python3 ch05-org-scaling/field_to_core_module.py
+python3 ch05-org-scaling/quick_win_scorer.py
+python3 conclusion-handover/health_check.py
+python3 conclusion-handover/hypercare_watchdog.py
 ```
 
 ---
@@ -118,4 +132,4 @@ python3 companion-code/ch04-supply-chain-reconciler/audit.py
 
     আমার মাথায় আর কী কী ঘোরে, সেটাও পাবেন [এখানে](https://medium.com/@raqueeb/print-media-write-ups-2024-25-f2896ce92f7b)।
 
-    এখানে পাবেন [আমার লেখা বিভিন্ন রিসোর্স](https://aiwithr.github.io/resources/), [আমি কে](https://aiwithr.github.io/about/) এবং [প্রিন্ট মিডিয়াতে আমার কিছু লেখা](https://aiwithr.github.io/print/)।
+    এখানে পাবেন আমার লেখা [বিভিন্ন রিসোর্স](https://aiwithr.github.io/resources/), [আমি কে](https://aiwithr.github.io/about/) এবং প্রিন্ট মিডিয়াতে আমার [কিছু লেখা](https://aiwithr.github.io/print/)।
