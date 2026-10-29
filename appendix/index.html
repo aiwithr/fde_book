@@ -610,7 +610,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ধাপ ১: রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ
+        ধাপ ১: কমপ্যানিয়ন রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ
       
     </span>
   </a>
@@ -727,7 +727,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ধাপ ১: রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ
+        ধাপ ১: কমপ্যানিয়ন রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ
       
     </span>
   </a>
@@ -822,12 +822,12 @@
 </div>
 <hr />
 <h2 id="_2">২. গিটহাব ল্যাব ও কমপ্যানিয়ন কোড চালানোর গাইড<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>বইয়ের প্রতিটা চ্যাপ্টারের কোড যাতে আপনি নিজের ল্যাপটপে বিনা খরচে (কোনো পেইড ক্লাউড বা এপিআই কি ছাড়াই) চালিয়ে দেখতে পারেন, সেজন্য অফিশিয়াল গিটহাব রিপোজিটরিতে সবগুলো স্ক্রিপ্ট ও মক ডেটা সাজিয়ে রাখা হয়েছে।</p>
-<h3 id="_3">ধাপ ১: রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>বইয়ের প্রতিটা চ্যাপ্টারের কোড যাতে আপনি নিজের ল্যাপটপে বিনা খরচে (কোনো পেইড ক্লাউড বা এপিআই কি ছাড়াই) চালিয়ে দেখতে পারেন, সেজন্য অফিশিয়াল কমপ্যানিয়ন গিটহাব রিপোজিটরিতে (<a href="https://github.com/raqueeb/fdebook_companion">https://github.com/raqueeb/fdebook_companion</a>) সবগুলো স্ক্রিপ্ট ও মক ডেটা সাজিয়ে রাখা হয়েছে।</p>
+<h3 id="_3">ধাপ ১: কমপ্যানিয়ন রিপোজিটরি ক্লোন ও পাইথন এনভায়রনমেন্ট সেটআপ<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>আপনার কম্পিউটারে <code>Python 3.10+</code> এবং <code>Git</code> ইনস্টল থাকলে টার্মিনাল বা পাওয়ারশেলে নিচের কমান্ডগুলো চালান:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># ১. অফিশিয়াল গিটহাব রিপোজিটরি ক্লোন করুন</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/aiwithr/fde_book.git
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>fde_book
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># ১. অফিশিয়াল কমপ্যানিয়ন কোড রিপোজিটরি ক্লোন করুন</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/raqueeb/fdebook_companion.git
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>fdebook_companion
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># ২. আলাদা ভার্চুয়াল এনভায়রনমেন্ট তৈরি ও চালু করুন</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
@@ -839,18 +839,32 @@
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:1.5b
 </span></code></pre></div>
 <h3 id="_4">ধাপ ৩: চ্যাপ্টারভিত্তিক কমপ্যানিয়ন স্ক্রিপ্ট রান করা<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p>রিপোজিটরির <code>companion-code/</code> ফোল্ডারের ভেতর প্রতিটা চ্যাপ্টারের কোড আলাদা ডিরেক্টরিতে রাখা আছে:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># চ্যাপ্টার ২: লোকাল এলএলএম কাস্টমার টিকিট ট্রায়াজ ইঞ্জিন</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>companion-code/ch02-local-triage-engine/triage.py
+<p>রিপোজিটরির ভেতর প্রতিটা চ্যাপ্টারের কোড আলাদা ডিরেক্টরিতে রাখা আছে:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># ইন্ট্রোডাকশন: সাইলেন্ট চর্ন ও শ্যাডো আইটি ডিটেক্টর</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>intro-silent-churn/detect_silent_abandonment.py
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># চ্যাপ্টার ৩: গোল্ডেন ডেটাসেট ইভ্যালুয়েশন হারনেস টেস্টবেঞ্চ</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>python3<span class="w"> </span>companion-code/ch03-resilient-pipeline/eval_harness.py
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># চ্যাপ্টার ৪ (ট্র্যাক এ): অ্যাসিনক্রোনাস আইএসপি ফাইবার কাট রাউটিং ওয়ার্কার</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>python3<span class="w"> </span>companion-code/ch04-isp-routing-worker/worker.py
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># চ্যাপ্টার ৪ (ট্র্যাক বি): চট্টগ্রাম পোর্ট থ্রি-ওয়ে ইনভয়েস রিকনসিলার</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>python3<span class="w"> </span>companion-code/ch04-supply-chain-reconciler/audit.py
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># চ্যাপ্টার ১: ফিল্ড বটলনেক ডায়াগনস্টিক ও ওটিপি এসএলএ ট্র্যাকার</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>python3<span class="w"> </span>ch01-field-discovery/bottleneck_analyzer.py
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python3<span class="w"> </span>ch01-field-discovery/otp_sla_tracker.py
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># চ্যাপ্টার ২: SQLite WAL লোকাল কিউ ও লোকাল এলএলএম টিকিট ট্রায়াজ ইঞ্জিন</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>python3<span class="w"> </span>ch02-local-triage-engine/sqlite_wal_queue.py
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>python3<span class="w"> </span>ch02-local-triage-engine/triage.py
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1"># চ্যাপ্টার ৩: ডোমেইন স্প্রিন্ট ভ্যাট ইঞ্জিন ও গোল্ডেন ইভ্যালুয়েশন হারনেস</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>python3<span class="w"> </span>ch03-resilient-pipeline/domain_sprint_vat.py
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>python3<span class="w"> </span>ch03-resilient-pipeline/eval_harness.py
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># চ্যাপ্টার ৪ (ট্র্যাক এ ও বি): আইএসপি রাউটিং ওয়ার্কার, পোর্ট রিকনসিলার ও ম্যানেজার সামারি</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>python3<span class="w"> </span>ch04-isp-routing-worker/worker.py
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/audit.py
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/manager_hero_report.py
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="c1"># চ্যাপ্টার ৫ ও কনক্লুশন: ফিল্ড-টু-কোর ইঞ্জিন, কুইক-উইন স্কোরার ও হেলথ চেক ওয়াচডগ</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>python3<span class="w"> </span>ch05-org-scaling/field_to_core_module.py
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>python3<span class="w"> </span>ch05-org-scaling/quick_win_scorer.py
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>python3<span class="w"> </span>conclusion-handover/health_check.py
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>python3<span class="w"> </span>conclusion-handover/hypercare_watchdog.py
 </span></code></pre></div>
 <hr />
 <h2 id="glossary">৩. ফিল্ড ইঞ্জিনিয়ারিং ও এআই শব্দকোষ (Glossary)<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h2>
@@ -1004,7 +1018,7 @@
 <p class="admonition-title">আমার সাথে কথা বলতে চান?</p>
 <p>আমাকে WhatsApp এ মেসেজ করতে পারেন: <a href="https://wa.me/+8801713095767">+8801713095767</a>। আমি যেহেতু রোবট, কল থেকে মেসেজেই বেশি অভ্যস্ত। আমার সব আলাপ <a href="https://medium.com/@raqueeb">মিডিয়াম</a>, <a href="https://www.facebook.com/raqueeb">ফেসবুক</a> আর <a href="https://www.linkedin.com/in/raqueeb/">লিংকডইনে</a> পাবেন। ভিডিও দেখতে চাইলে আছে <a href="https://www.youtube.com/@raqueeb">ইউটিউব</a>।</p>
 <p>আমার মাথায় আর কী কী ঘোরে, সেটাও পাবেন <a href="https://medium.com/@raqueeb/print-media-write-ups-2024-25-f2896ce92f7b">এখানে</a>।</p>
-<p>এখানে পাবেন <a href="https://aiwithr.github.io/resources/">আমার লেখা বিভিন্ন রিসোর্স</a>, <a href="https://aiwithr.github.io/about/">আমি কে</a> এবং <a href="https://aiwithr.github.io/print/">প্রিন্ট মিডিয়াতে আমার কিছু লেখা</a>।</p>
+<p>এখানে পাবেন আমার লেখা <a href="https://aiwithr.github.io/resources/">বিভিন্ন রিসোর্স</a>, <a href="https://aiwithr.github.io/about/">আমি কে</a> এবং প্রিন্ট মিডিয়াতে আমার <a href="https://aiwithr.github.io/print/">কিছু লেখা</a>।</p>
 </div>
 
 

@@ -481,6 +481,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="৩. হালকা ডেটা পাইপলাইন: ক্যাফকা ছাড়াই হাজার রিকোয়েস্ট সামলানো">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-sqlite-wal-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        কোড-স্যান্ডউইচ মেথড: ক্যাফকা ছাড়াই SQLite WAL হাই-কনকারেন্সি লোকাল কিউ
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -744,6 +761,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="৩. হালকা ডেটা পাইপলাইন: ক্যাফকা ছাড়াই হাজার রিকোয়েস্ট সামলানো">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-sqlite-wal-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        কোড-স্যান্ডউইচ মেথড: ক্যাফকা ছাড়াই SQLite WAL হাই-কনকারেন্সি লোকাল কিউ
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -863,6 +897,36 @@
 ১. হোয়াটসঅ্যাপ মেসেজ, ওয়েব ফর্ম বা স্ক্যানার থেকে আসা অগোছালো ডেটা প্রথমে পাইথন গেটওয়ে রিসিভ করে <code>SQLite WAL</code> কিউতে রাখবে।
 ২. লোকাল সার্ভারে চলা ছোট এলএলএম (<code>Ollama</code>) সেই টেক্সট পড়ে বুঝে নেবে মেসেজটা কোন ক্যাটাগরির এবং কতটা আর্জেন্ট।
 ৩. মডেল থেকে বের হওয়া পরিষ্কার <code>JSON</code> ডেটা সরাসরি লোকাল ডেটাবেজে সেভ হবে এবং চ্যাপ্টার ১-এ বানানো সেই ওটিপি বা নোটিফিকেশন চ্যানেলে অ্যাকশন ট্রিগার করবে।</p>
+<h4 id="-sqlite-wal-">কোড-স্যান্ডউইচ মেথড: ক্যাফকা ছাড়াই <code>SQLite WAL</code> হাই-কনকারেন্সি লোকাল কিউ<a class="headerlink" href="#-sqlite-wal-" title="Permanent link">&para;</a></h4>
+<p><strong>১. কাস্টমারের বাস্তব সংকট:</strong> ক্লায়েন্টের ৩২ জিবি র‍্যামের লোকাল সার্ভারে ক্যাফকা (Kafka) বা রেডিসের মতো ভারী মেসেজ ব্রোকার বসালে র‍্যাম ফুরিয়ে যায় এবং মেইনটেন্যান্সের ঝামেলা বাড়ে। অথচ একসাথে দশজন স্টাফ এন্ট্রি দিলে এবং ব্যাকগ্রাউন্ডে এআই ওয়ার্কার ডেটা পড়লে যেন <code>Database is locked</code> এরর না আসে, সেই ব্যবস্থা দরকার।</p>
+<p><strong>২. মূল কোড:</strong> নিচের ষোলো লাইনের পাইথন কোডটি কোনো এক্সটার্নাল সার্ভার ছাড়াই বিল্ট-ইন <code>sqlite3</code>-তে <code>WAL</code> মোড চালু করে নন-ব্লকিং লোকাল মেসেজ কিউ তৈরি করে:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># FDE On-Prem Engine: Zero-Dependency SQLite WAL Concurrent Queue</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">init_local_wal_queue</span><span class="p">(</span><span class="n">db_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"fde_queue.db"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Connection</span><span class="p">:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">db_path</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="c1"># ১. WAL মোড চালু: রিড এবং রাইট একসাথে কোনো লক ছাড়াই চলবে</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"PRAGMA journal_mode=WAL;"</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="c1"># ২. ডিস্ক সিঙ্ক অপ্টিমাইজেশন: ক্র্যাশ-সেফ থেকেও ৩ গুণ দ্রুত রাইট স্পিড</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"PRAGMA synchronous=NORMAL;"</span><span class="p">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"""CREATE TABLE IF NOT EXISTS ticket_queue (</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="s2">        id INTEGER PRIMARY KEY AUTOINCREMENT, raw_msg TEXT, status TEXT DEFAULT 'PENDING'</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="s2">    )"""</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">return</span> <span class="n">conn</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># ফিল্ড টেস্ট: লোকাল কিউতে মেসেজ ইনসার্ট ও স্ট্যাটাস যাচাই</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">db</span> <span class="o">=</span> <span class="n">init_local_wal_queue</span><span class="p">()</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"INSERT INTO ticket_queue (raw_msg) VALUES (?)"</span><span class="p">,</span> <span class="p">(</span><span class="s2">"চালানে ওজনের গরমিল"</span><span class="p">,))</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">mode</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"PRAGMA journal_mode;"</span><span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Queue Mode: </span><span class="si">{</span><span class="n">mode</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> | Pending Tickets: </span><span class="si">{</span><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">'SELECT count(*) FROM ticket_queue'</span><span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>৩. সিস্টেমের বাস্তব ইমপ্যাক্ট ও কোডের ব্যাখ্যা:</strong> স্ক্রিপ্টটা রান করলে আউটপুটে দেখবেন:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Queue Mode: WAL | Pending Tickets: 1
+</span></code></pre></div>
+<p>কোডটার ভেতরের দুটো <code>PRAGMA</code> লাইন যেকোনো অন-প্রেম ইঞ্জিনিয়ারের জন্য সোনার খনি:
+* <strong><code>PRAGMA journal_mode=WAL;</code>:</strong> এই একটা কমান্ডেই SQLite-এর আচরণ বদলে যায়। এখন নতুন মেসেজ এলে মূল ডেটাবেজ ফাইল লক না করে পাশের <code>-wal</code> ফাইলে অ্যাপেন্ড হতে থাকে। ফলে একদিকে দশজন স্টাফ যখন ড্যাশবোর্ড রিফ্রেশ করছেন, ঠিক সেই মুহূর্তে ব্যাকগ্রাউন্ডের এআই ওয়ার্কার কোনো বাধা ছাড়াই নতুন টিকিট প্রসেস করতে পারে।
+* <strong><code>PRAGMA synchronous=NORMAL;</code>:</strong> ডিফল্ট <code>FULL</code> মোডে প্রতিটা ট্রানজ্যাকশনের পর হার্ডডিস্কের মেকানিক্যাল হেড থামা পর্যন্ত অপেক্ষা করা হয়। <code>WAL</code> মোডের সাথে <code>NORMAL</code> ব্যবহার করলে ডেটা পুরোপুরি নিরাপদ থাকে, কিন্তু ডিস্কে লেখার গতি তিন-চার গুণ বেড়ে যায়।</p>
+<p><strong>৪. গিটহাব রেফারেন্স:</strong> সম্পূর্ণ লোকাল কিউ ও ট্রায়াজ পাইপলাইন পাবেন অফিশিয়াল কমপ্যানিয়ন রিপোজিটরিতে: <a href="https://github.com/raqueeb/fdebook_companion">https://github.com/raqueeb/fdebook_companion</a>।</p>
 <hr />
 <h3 id="-_2">৪. ভিজ্যুয়াল আর্কিটেকচার: অন-প্রেম ইন্টেলিজেন্স পাইপলাইন<a class="headerlink" href="#-_2" title="Permanent link">&para;</a></h3>
 <p>নিচের মারমেইড ডায়াগ্রামে দেখুন কিভাবে কোনো ক্লাউড ছাড়াই অফিসের ওই পুরনো পিসির ভেতরে পুরো ডেটা পাইপলাইনটা কাজ করে:</p>
@@ -908,44 +972,44 @@
 <h4 id="-_4">কোড-স্যান্ডউইচ মেথড<a class="headerlink" href="#-_4" title="Permanent link">&para;</a></h4>
 <p><strong>১. কাস্টমারের বাস্তব সংকট:</strong> ক্লায়েন্টের সাপোর্ট ও অপারেশন ডেস্কে রোজ হোয়াটসঅ্যাপে আর পোর্টালে শত শত বাংলা ও বাংলিশ মেসেজ আসে। কেউ লেখেন <em>"আমার মালের ট্রাক সকাল থেকে গেটে দাঁড়িয়ে আছে, চালানে নাকি ভুল"</em>, আবার কেউ লেখেন <em>"ভাই স্টকের হিসাব মিলতেছে না"</em>। স্টাফরা এই সব মেসেজ চোখে পড়ে কোনটা বিলিংয়ের, কোনটা ডেলিভারির আর কোনটা আর্জেন্ট - তা বাছাই করতেই রোজ দুই ঘণ্টা সময় নষ্ট করেন।</p>
 <p><strong>২. মূল কোড:</strong> নিচের বিশ লাইনের পাইথন স্ক্রিপ্টটা কোনো থার্ড-পার্টি লাইব্রেরি ছাড়াই লোকালহোস্টে চলা <code>Ollama</code> সার্ভারকে কল করে মেসেজটাকে স্ট্রাকচার্ড JSON-এ রূপান্তর করে ফেলে:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># FDE Field Engine: Local LLM Triage Worker (Zero-Cloud Dependency)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span><span class="o">,</span><span class="w"> </span><span class="nn">urllib.request</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">triage_customer_ticket</span><span class="p">(</span><span class="n">raw_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""You are an on-prem triage engine. Read this Bengali customer message and return ONLY JSON:</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="s2">    Message: "</span><span class="si">{</span><span class="n">raw_text</span><span class="si">}</span><span class="s2">"</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="s2">    Required keys: </span><span class="se">{{</span><span class="s2">"category": "DELIVERY|BILLING|STOCK", "priority": "HIGH|MEDIUM|LOW", "action": "string"</span><span class="se">}}</span><span class="s2">"""</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"qwen2.5:1.5b"</span><span class="p">,</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="s2">"format"</span><span class="p">:</span> <span class="s2">"json"</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="p">})</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s2">"http://localhost:11434/api/generate"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>                                 <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">})</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"response"</span><span class="p">])</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="c1"># ফিল্ড টেস্ট: কাস্টমারের আসল মেসেজ দিয়ে যাচাই</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">sample_msg</span> <span class="o">=</span> <span class="s2">"আমার মালের ট্রাক সকাল থেকে গেটে দাঁড়িয়ে আছে, চালানে নাকি ভুল আছে, খুব আর্জেন্ট!"</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">triage_customer_ticket</span><span class="p">(</span><span class="n">sample_msg</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># FDE Field Engine: Local LLM Triage Worker (Zero-Cloud Dependency)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span><span class="o">,</span><span class="w"> </span><span class="nn">urllib.request</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">triage_customer_ticket</span><span class="p">(</span><span class="n">raw_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""You are an on-prem triage engine. Read this Bengali customer message and return ONLY JSON:</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="s2">    Message: "</span><span class="si">{</span><span class="n">raw_text</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="s2">    Required keys: </span><span class="se">{{</span><span class="s2">"category": "DELIVERY|BILLING|STOCK", "priority": "HIGH|MEDIUM|LOW", "action": "string"</span><span class="se">}}</span><span class="s2">"""</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"qwen2.5:1.5b"</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="s2">"prompt"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="s2">"stream"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="s2">"format"</span><span class="p">:</span> <span class="s2">"json"</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="p">})</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="s2">"http://localhost:11434/api/generate"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>                                 <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">})</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"response"</span><span class="p">])</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="c1"># ফিল্ড টেস্ট: কাস্টমারের আসল মেসেজ দিয়ে যাচাই</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="n">sample_msg</span> <span class="o">=</span> <span class="s2">"আমার মালের ট্রাক সকাল থেকে গেটে দাঁড়িয়ে আছে, চালানে নাকি ভুল আছে, খুব আর্জেন্ট!"</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">triage_customer_ticket</span><span class="p">(</span><span class="n">sample_msg</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 </span></code></pre></div>
 <p><strong>৩. সিস্টেমের বাস্তব ইমপ্যাক্ট:</strong> আপনার মেশিনে <code>ollama pull qwen2.5:1.5b</code> করা থাকলে এই স্ক্রিপ্টটা রান করামাত্র এরকম আউটপুট পাবেন:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BILLING"</span><span class="p">,</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Verify challan discrepancy immediately and clear truck at gate"</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BILLING"</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Verify challan discrepancy immediately and clear truck at gate"</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>নতুন যাঁরা অটোমেশন তৈরি করছেন, তাঁরা কোডটার ভেতরে তিনটা জিনিস বিশেষভাবে লক্ষ্য করুন:
 * <strong>কেন <code>urllib.request</code> ব্যবহার করলাম?</strong> ক্লায়েন্টের পুরনো অন-প্রেম সার্ভারে প্রায়ই ইন্টারনেট থাকে না বা <code>pip install</code> করার অনুমতি মেলে না। পাইথনের নিজস্ব স্ট্যান্ডার্ড লাইব্রেরি ব্যবহার করলে কোডটা যেকোনো মেশিনে কোনো ডিপেন্ডেন্সি ছাড়াই সাথে সাথে রান করে।
 * <strong>কেন <code>"stream": False</code> এবং <code>"format": "json"</code> দিলাম?</strong> চ্যাটবট বানানোর সময় শব্দগুলো একটা একটা করে স্ক্রিনে ভাসলে (<code>stream: True</code>) দেখতে ভালো লাগে। কিন্তু ব্যাকএন্ড অটোমেশনে আমাদের দরকার পুরো উত্তরটা একসাথে পাওয়া, এবং তার ভেতরে যেন <code>"Sure! Here is your JSON:"</code>-জাতীয় বাড়তি কোনো কথা না থাকে। <code>"format": "json"</code> প্যারামিটারটা মডেলকে বাধ্য করে শুধুমাত্র ভ্যালিড JSON আউটপুট দিতে, যাতে পরের লাইনেই <code>json.loads()</code> কোনো এরর ছাড়াই ডেটাটা ডিকশনারিতে নিয়ে নিতে পারে।
 * <strong>কাজে কী বদল এল?</strong> যে মেসেজটা আগে ঘণ্টার পর ঘণ্টা সাপোর্ট ইনবক্সে পড়ে থাকত, এখন সেটা আসার দুই সেকেন্ডের মধ্যে <code>"priority": "HIGH"</code> এবং <code>"category": "BILLING"</code> ট্যাগ নিয়ে সরাসরি হেড অ্যাকাউন্ট্যান্ট ও গেট ম্যানেজারের ড্যাশবোর্ডে পপ-আপ করছে।</p>
 <p>সেদিন বিকেলে হেড অ্যাকাউন্ট্যান্ট সাহেব আপনার মনিটরের দিকে অবাক হয়ে তাকিয়ে ছিলেন। টেবিলের নিচের সেই ধুলোমাখা পিসিটা থেকেই যে এই জাদু ঘটছে, তা তিনি বিশ্বাসই করতে পারছিলেন না।</p>
-<p><strong>৪. গিটহাব রেফারেন্স:</strong> সম্পূর্ণ ট্রায়াজ ইঞ্জিন এবং টেস্ট করার জন্য ৫০টি মক টিকিটের ডেটাসেট (<code>mock_tickets.json</code>) পাবেন বইয়ের অফিশিয়াল রিপোজিটরিতে: <a href="https://github.com/aiwithr/fde_book">https://github.com/aiwithr/fde_book</a>।</p>
+<p><strong>৪. গিটহাব রেফারেন্স:</strong> সম্পূর্ণ ট্রায়াজ ইঞ্জিন এবং টেস্ট করার জন্য ৫০টি মক টিকিটের ডেটাসেট (<code>mock_tickets.json</code>) পাবেন বইয়ের অফিশিয়াল কমপ্যানিয়ন রিপোজিটরিতে: <a href="https://github.com/raqueeb/fdebook_companion">https://github.com/raqueeb/fdebook_companion</a>।</p>
 <hr />
 <h3 id="-_5">৭. অন-প্রেম আর্কিটেকচারের সারসংক্ষেপ<a class="headerlink" href="#-_5" title="Permanent link">&para;</a></h3>
 <p>ক্লায়েন্টের সাইটে লোকাল আর্কিটেকচার দাঁড় করানোর সময় সবসময় বাস্তববাদী থাকবেন। </p>
@@ -953,9 +1017,10 @@
 <p>পরের চ্যাপ্টারে আমরা ঢুকব <strong>দ্য নিউ এসডিএলসি</strong>-তে। সেখানে দেখব এআই কোডিং এজেন্ট ব্যবহার করে ফিল্ডে বসেই কিভাবে বিশ মিনিটের মধ্যে হেড অ্যাকাউন্ট্যান্ট সাহেবের সেই লাল খাতার ভ্যাট-রিবেটের হিসাব কোডে নামানো যায়, কিভাবে কোড লেখার আগেই ইভ্যালুয়েশন হারনেস বানাতে হয়, এবং মাঝরাতে সার্ভার ক্র্যাশ করলে সিস্টেম কিভাবে নিজেই আগের ভালো ভার্সনে রোলব্যাক করে।</p>
 <hr />
 <div class="admonition question">
-<p class="admonition-title">কথা বলতে চান?</p>
+<p class="admonition-title">আমার সাথে কথা বলতে চান?</p>
 <p>আমাকে WhatsApp এ মেসেজ করতে পারেন: <a href="https://wa.me/+8801713095767">+8801713095767</a>। আমি যেহেতু রোবট, কল থেকে মেসেজেই বেশি অভ্যস্ত। আমার সব আলাপ <a href="https://medium.com/@raqueeb">মিডিয়াম</a>, <a href="https://www.facebook.com/raqueeb">ফেসবুক</a> আর <a href="https://www.linkedin.com/in/raqueeb/">লিংকডইনে</a> পাবেন। ভিডিও দেখতে চাইলে আছে <a href="https://www.youtube.com/@raqueeb">ইউটিউব</a>।</p>
 <p>আমার মাথায় আর কী কী ঘোরে, সেটাও পাবেন <a href="https://medium.com/@raqueeb/print-media-write-ups-2024-25-f2896ce92f7b">এখানে</a>।</p>
+<p>এখানে পাবেন আমার লেখা <a href="https://aiwithr.github.io/resources/">বিভিন্ন রিসোর্স</a>, <a href="https://aiwithr.github.io/about/">আমি কে</a> এবং প্রিন্ট মিডিয়াতে আমার <a href="https://aiwithr.github.io/print/">কিছু লেখা</a>।</p>
 </div>
 
 

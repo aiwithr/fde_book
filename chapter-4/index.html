@@ -624,6 +624,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="৮. ফিল্ড পলিটিক্স: কোড নিখুঁত, তবু যখন প্রজেক্ট আটকে যায়">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        কোড-স্যান্ডউইচ মেথড: মিড-লেভেল ম্যানেজারকে 'হিরো' বানানোর ১-ক্লিক সামারি জেনারেটর
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -861,6 +878,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="৮. ফিল্ড পলিটিক্স: কোড নিখুঁত, তবু যখন প্রজেক্ট আটকে যায়">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        কোড-স্যান্ডউইচ মেথড: মিড-লেভেল ম্যানেজারকে 'হিরো' বানানোর ১-ক্লিক সামারি জেনারেটর
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -880,7 +914,7 @@
 
 
 
-<h1 id="-">চ্যাপ্টার ৪: ফিল্ড প্লেবুক ইন অ্যাকশন - হাই-স্টেক্স রিয়েল কেস স্টাডিজ<a class="headerlink" href="#-" title="Permanent link">&para;</a></h1>
+<h1 id="-">চ্যাপ্টার ৪: ফিল্ড প্লেবুক ইন অ্যাকশন - হাই-স্টেক্স রিয়েল কেস স্টাডি<a class="headerlink" href="#-" title="Permanent link">&para;</a></h1>
 <hr />
 <h3 id="_1">১. তত্ত্বের বাইরে আসল ফিল্ডের লড়াই<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>প্রথম তিন চ্যাপ্টারে আমরা একজন ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারের কাজের পুরো টুলবক্সটা সাজিয়ে নিয়েছি। চ্যাপ্টার ১-এ দেখেছি কিভাবে প্রথম আটচল্লিশ ঘণ্টায় স্টাফদের মনের ফিয়ার কাটিয়ে শ্যাডো সেশনের মাধ্যমে এসওপির আড়ালের আসল বটলনেক খুঁজে বের করতে হয়। চ্যাপ্টার ২-এ শিখেছি কিভাবে ক্লাউড বা জিপিইউ ছাড়াই টেবিলের নিচের পুরনো পিসিতে লোকাল এলএলএম (<code>Ollama</code> ও <code>Qwen 2.5</code>) এবং <code>SQLite WAL</code> চালিয়ে ডেটা প্রসেস করা যায়। আর চ্যাপ্টার ৩-এ দেখেছি বিশ মিনিটের ডোমেইন স্প্রিন্ট, ইভ্যালুয়েশন হারনেস এবং সেলফ-হিলিং সিআই/সিডি রোলব্যাক পাইপলাইন।</p>
@@ -978,7 +1012,7 @@
 * <strong>আর্কিটেকচারাল শর্টকাট (এআই বাঁচানো):</strong> আমরা কিন্তু প্রতিটা টিকিট চোখ বন্ধ করে এলএলএম-এর কাছে পাঠাইনি! আগে একটা সাধারণ ডিকশনারি লুকআপ (<code>OLT_STATUS_CACHE.get</code>) দিয়ে এক মাইক্রোসেকেন্ডে চেক করে নিয়েছি ওই এলাকায় ফাইবার কাটা কি না। ফাইবার কাটা থাকলে এআই মডেল চালিয়ে সিপিইউ খরচ করার কোনো দরকারই নেই। যেগুলো সাধারণ সমস্যা (<code>DHK-UTT-03</code>), শুধু সেগুলোই পরের ধাপে এলএলএম ট্রায়াজে যাচ্ছে।
 * <strong><code>asyncio.gather</code>-এর শক্তি:</strong> দশ হাজার টিকিট এলে <code>asyncio.gather</code> সবগুলো টিকিটকে একসাথে ইভেন্ট লুপে তুলে দেয়। ফলে একটা টিকিটের এসএমএস যেতে যে ৫০ মিলিসেকেন্ড সময় লাগে, সেই ফাঁকে বাকি শত শত টিকিটের ওএলটি স্ট্যাটাস চেক হয়ে যায়।</p>
 <p>এই বিশ লাইনের কোডটা বসানোর পর পরের সপ্তাহে যখন আবার বৃষ্টি নামল, সাপোর্ট সেন্টারের দৃশ্যই বদলে গেল। ফাইবার কাটার সাথে সাথে দশ হাজার গ্রাহকের ফোনে বাংলায় এসএমএস চলে গেল যে ৪৫ মিনিটে লাইন ঠিক হবে। কল সেন্টারে ফোনের চাপ এক ধাক্কায় ৮০% কমে গেল, আর সাপোর্ট স্টাফরা ঠান্ডা মাথায় বাকি ২০% গ্রাহকের রাউটারের সমস্যা মিটিয়ে ফেললেন।</p>
-<p><strong>৪. গিটহাব রেফারেন্স:</strong> আইএসপি রাউটিং ওয়ার্কার (<code>worker.py</code>) ও টেস্ট স্ক্রিপ্ট পাবেন বইয়ের অফিশিয়াল রিপোজিটরিতে: <a href="https://github.com/aiwithr/fde_book">https://github.com/aiwithr/fde_book</a>।</p>
+<p><strong>৪. গিটহাব রেফারেন্স:</strong> আইএসপি রাউটিং ওয়ার্কার (<code>worker.py</code>) ও টেস্ট স্ক্রিপ্ট পাবেন বইয়ের অফিশিয়াল কমপ্যানিয়ন রিপোজিটরিতে: <a href="https://github.com/raqueeb/fdebook_companion">https://github.com/raqueeb/fdebook_companion</a>।</p>
 <hr />
 <h3 id="_3">৫. ট্র্যাক বি: চট্টগ্রাম বন্দরের কন্টেইনার জট ও ইনভয়েস রিকনসিলিয়েশন<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>এবার ঢাকার কল সেন্টার ছেড়ে চলুন দেশের অর্থনীতির সবচেয়ে ব্যস্ত ময়দানে - চট্টগ্রাম বন্দরে।</p>
@@ -1056,7 +1090,7 @@
 </span></code></pre></div>
 <p>নতুন প্রোগ্রামাররা কোডটার লজিকটা খেয়াল করুন। হেডকোয়ার্টারে বসে কোনো ডেভেলপার যদি এই কোডটা ডোমেইন স্প্রিন্ট ছাড়া লিখতেন, তিনি নির্ঘাত লিখতেন <code>if weighed_kg == declared_kg</code>। আর তার ফলে ৫০,০০০ কেজির বিপরীতে ৫০,১৫০ কেজি আসামাত্র প্রতিটা বৈধ কন্টেইনার আটকে যেত! কিন্তু একজন এফডিই ফিল্ডে বসে কাজ করেছেন বলেই তিনি <code>tolerance_kg = declared_kg * 0.01</code> (অর্থাৎ ৫০,০০০ কেজিতে ৫০০ কেজি পর্যন্ত ছাড়) কোডে বসিয়েছেন। যেহেতু ১৫০ কেজির পার্থক্য ৫০০ কেজির সীমার ভেতরে আছে এবং দুটো কাগজেই ল্যাপটপ/কম্পিউটারের এইচএস কোড (<code>8471.30</code>) হুবহু মিলেছে, সিস্টেম এক সেকেন্ডে অটো গেট পাস দিয়ে দিয়েছে।</p>
 <p>অন্যদিকে, যদি ওয়েব্রিজ স্কেলে ওজন আসত ৫০,৮০০ কেজি (৮০০ কেজি ফারাক), কিংবা কেউ ট্যাক্স ফাঁকি দেওয়ার জন্য ইনভয়েসে অন্য এইচএস কোড বসাত, তবে সিস্টেম সাথে সাথে সেটাকে <code>FLAGGED</code> করে হেড ক্লার্কের মনিটরে পাঠিয়ে দিত। অর্থাৎ ৯০% সাধারণ চালান চোখের পলকে বন্দর থেকে বেরিয়ে যাচ্ছে, আর হেড ক্লার্ক সাহেব তাঁর মূল্যবান সময় দিচ্ছেন শুধু বাকি ১০% সন্দেহজনক ফাইলের পেছনে। কোম্পানির মাসে লাখ লাখ টাকার ডেমারেজ জরিমানা জিরোতে নেমে এল।</p>
-<p><strong>৪. গিটহাব রেফারেন্স:</strong> সম্পূর্ণ সাপ্লাই চেইন রিকনসিলার স্ক্রিপ্ট (<code>audit.py</code>) পাবেন বইয়ের অফিশিয়াল রিপোজিটরিতে: <a href="https://github.com/aiwithr/fde_book">https://github.com/aiwithr/fde_book</a>।</p>
+<p><strong>৪. গিটহাব রেফারেন্স:</strong> সম্পূর্ণ সাপ্লাই চেইন রিকনসিলার স্ক্রিপ্ট (<code>audit.py</code>) পাবেন বইয়ের অফিশিয়াল কমপ্যানিয়ন রিপোজিটরিতে: <a href="https://github.com/raqueeb/fdebook_companion">https://github.com/raqueeb/fdebook_companion</a>।</p>
 <hr />
 <h3 id="_4">৮. ফিল্ড পলিটিক্স: কোড নিখুঁত, তবু যখন প্রজেক্ট আটকে যায়<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>কেস স্টাডি দুটোর টেকনিক্যাল সমাধান তো দেখলেন। এবার ফিল্ড ইঞ্জিনিয়ারিংয়ের এমন এক গোপন বাস্তবতার কথা বলি, যা কোনো কম্পিউটার সায়েন্সের সিলেবাসে পড়ানো হয় না।</p>
@@ -1071,12 +1105,43 @@
 <p class="admonition-title">ফিল্ডে মানুষ সামলানোর গোল্ডেন রুল</p>
 <p>অটোমেশন করতে গিয়ে কখনো কারও সম্মান বা গুরুত্ব কেড়ে নেবেন না। যে মিড-লেভেল ম্যানেজার প্রজেক্টে বাধা দিচ্ছেন, তাঁকে সিইওর কাছে ছোট না করে এমন একটা অটোমেটেড রিপোর্টিং ফিচার উপহার দিন যা ম্যানেজমেন্টের চোখে তাঁর নিজের ক্রেডিট বাড়িয়ে দেয়। আর কেউ যদি মুখের ওপর বলে "আপনার সিস্টেম কাজ করে না", তবে তর্কে না গিয়ে শান্তভাবে সার্ভারের টাইমস্ট্যাম্প লগ আর ডেটা বের করে দেখান। আবেগের চেয়ে ডেটার শক্তি সবসময় বেশি।</p>
 </div>
+<h4 id="-_7">কোড-স্যান্ডউইচ মেথড: মিড-লেভেল ম্যানেজারকে 'হিরো' বানানোর ১-ক্লিক সামারি জেনারেটর<a class="headerlink" href="#-_7" title="Permanent link">&para;</a></h4>
+<p><strong>১. কাস্টমারের বাস্তব সংকট:</strong> অপারেশন ম্যানেজারকে প্রতিদিন সন্ধ্যা ছটায় এমডি সাহেবের কাছে সারাদিনের কন্টেইনার ক্লিয়ারেন্স ও সাশ্রয় হওয়া ডেমারেজের সামারি এক্সেলে বানিয়ে মেইল করতে দেড় ঘণ্টা সময় ব্যয় করতে হয়। এই কাজটা এক ক্লিকে তাঁর নাম ও পদবিসহ জেনারেট করে দিলে তাঁর দেড় ঘণ্টা সময়ও বাঁচবে এবং তিনি আনন্দের সাথে নতুন সিস্টেমের ওনারশিপ নেবেন।</p>
+<p><strong>২. মূল কোড:</strong> নিচের পনেরো লাইনের পাইথন স্ক্রিপ্টটি সারাদিনের অডিট লগ হিসাব করে ম্যানেজারের নামে এমডি সাহেবের কাছে পাঠানোর মতো রেডিমেড এক্সিকিউটিভ সামারি তৈরি করে দেয়:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># FDE Stakeholder Aligner: 1-Click Executive Summary for Mid-Level Manager</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">build_manager_hero_report</span><span class="p">(</span><span class="n">manager_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logs</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">auto_cleared</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">logs</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"APPROVED"</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">flagged</span> <span class="o">=</span> <span class="n">total</span> <span class="o">-</span> <span class="n">auto_cleared</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">saved_usd</span> <span class="o">=</span> <span class="n">auto_cleared</span> <span class="o">*</span> <span class="mi">150</span>  <span class="c1"># প্রতি কন্টেইনারে গড় ১৫০ ডলার ডেমারেজ সাশ্রয়</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">return</span> <span class="p">(</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="sa">f</span><span class="s2">"বিষয়: দৈনিক পোর্ট অপারেশন সামারি | তত্ত্বাবধানে: </span><span class="si">{</span><span class="n">manager_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="sa">f</span><span class="s2">"- মোট কন্টেইনার প্রসেসড: </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> টি (অটো-গেটপাস: </span><span class="si">{</span><span class="n">auto_cleared</span><span class="si">}</span><span class="s2"> টি)</span><span class="se">\n</span><span class="s2">"</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="sa">f</span><span class="s2">"- কাস্টমস অডিটের জন্য ফ্ল্যাগড: </span><span class="si">{</span><span class="n">flagged</span><span class="si">}</span><span class="s2"> টি</span><span class="se">\n</span><span class="s2">"</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="sa">f</span><span class="s2">"- আনুমানিক ডেমারেজ সাশ্রয়: $</span><span class="si">{</span><span class="n">saved_usd</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> USD"</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="p">)</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="n">daily_logs</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"APPROVED"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"APPROVED"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"status"</span><span class="p">:</span> <span class="s2">"FLAGGED"</span><span class="p">}]</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">build_manager_hero_report</span><span class="p">(</span><span class="s2">"কামরুল হাসান, ডেপুটি ম্যানেজার (পোর্ট অপারেশনস)"</span><span class="p">,</span> <span class="n">daily_logs</span><span class="p">))</span>
+</span></code></pre></div>
+<p><strong>৩. সিস্টেমের বাস্তব ইমপ্যাক্ট ও কোডের ব্যাখ্যা:</strong> কোডটা রান করলে আউটপুটে আসবে:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>বিষয়: দৈনিক পোর্ট অপারেশন সামারি | তত্ত্বাবধানে: কামরুল হাসান, ডেপুটি ম্যানেজার (পোর্ট অপারেশনস)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>- মোট কন্টেইনার প্রসেসড: 3 টি (অটো-গেটপাস: 2 টি)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>- কাস্টমস অডিটের জন্য ফ্ল্যাগড: 1 টি
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>- আনুমানিক ডেমারেজ সাশ্রয়: $300 USD
+</span></code></pre></div>
+<p>এই ছোট্ট স্ক্রিপ্টটার মনস্তাত্ত্বিক ও টেকনিক্যাল দিকটা খেয়াল করুন:
+* <strong>তত্ত্বাবধানে ম্যানেজারের নাম (<code>তত্ত্বাবধানে: {manager_name}</code>):</strong> রিপোর্টের একদম প্রথম লাইনেই ক্রেডিট দেওয়া হচ্ছে ওই মিড-লেভেল ম্যানেজারকে, আপনার সফটওয়্যারকে নয়!
+* <strong>ব্যবসায়িক ইমপ্যাক্টের হিসাব (<code>saved_usd</code>):</strong> এমডি সাহেব কতগুলো <code>if-else</code> চলেছে তা জানতে চান না; তিনি জানতে চান আজ কত ডলার ডেমারেজ জরিমানা বেঁচেছে (<code>$300 USD</code>)। এই এক ক্লিকের বাটনটা পাওয়ার পর থেকেই ওই ম্যানেজার সিস্টেমের সবচেয়ে বড় ফ্যান হয়ে যান।</p>
+<p><strong>৪. গিটহাব রেফারেন্স:</strong> সম্পূর্ণ কেস স্টাডি ও রিপোর্ট জেনারেটর স্ক্রিপ্ট পাবেন অফিশিয়াল কমপ্যানিয়ন রিপোজিটরিতে: <a href="https://github.com/raqueeb/fdebook_companion">https://github.com/raqueeb/fdebook_companion</a>।</p>
 <p>পরের চ্যাপ্টারে আমরা দেখব, একজন একক এফডিই হিসেবে কাজ করার গণ্ডি পেরিয়ে কিভাবে একটা পুরো এফডিই টিম বা অর্গানাইজেশন দাঁড় করাতে হয়, কিভাবে ফিল্ডের কাস্টম কোড থেকে কোম্পানির মূল প্রোডাক্ট তৈরি হয় (প্যালান্টিয়ার প্যাটার্ন), এবং একজন জুনিয়র ডেভেলপার কোন রোডম্যাপ ধরে এই ক্যারিয়ারের শীর্ষে পৌঁছাতে পারেন।</p>
 <hr />
 <div class="admonition question">
-<p class="admonition-title">কথা বলতে চান?</p>
+<p class="admonition-title">আমার সাথে কথা বলতে চান?</p>
 <p>আমাকে WhatsApp এ মেসেজ করতে পারেন: <a href="https://wa.me/+8801713095767">+8801713095767</a>। আমি যেহেতু রোবট, কল থেকে মেসেজেই বেশি অভ্যস্ত। আমার সব আলাপ <a href="https://medium.com/@raqueeb">মিডিয়াম</a>, <a href="https://www.facebook.com/raqueeb">ফেসবুক</a> আর <a href="https://www.linkedin.com/in/raqueeb/">লিংকডইনে</a> পাবেন। ভিডিও দেখতে চাইলে আছে <a href="https://www.youtube.com/@raqueeb">ইউটিউব</a>।</p>
 <p>আমার মাথায় আর কী কী ঘোরে, সেটাও পাবেন <a href="https://medium.com/@raqueeb/print-media-write-ups-2024-25-f2896ce92f7b">এখানে</a>।</p>
+<p>এখানে পাবেন আমার লেখা <a href="https://aiwithr.github.io/resources/">বিভিন্ন রিসোর্স</a>, <a href="https://aiwithr.github.io/about/">আমি কে</a> এবং প্রিন্ট মিডিয়াতে আমার <a href="https://aiwithr.github.io/print/">কিছু লেখা</a>।</p>
 </div>
 
 
