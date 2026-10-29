@@ -44,7 +44,11 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/raqueeb
+      link: https://github.com/raqueeb/fdebook_companion
+      name: Official Companion Codebase (raqueeb/fdebook_companion)
+    - icon: fontawesome/brands/git-alt
+      link: https://github.com/aiwithr/fde_book
+      name: Book Source Repository (aiwithr/fde_book)
     - icon: fontawesome/brands/medium
       link: https://medium.com/@raqueeb
     - icon: fontawesome/brands/facebook-messenger
@@ -115,3 +119,4 @@ nav:
   - "চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং": "chapter-5/index.md"
   - "কনক্লুশন ও হ্যান্ডওভার": "conclusion/index.md"
   - "অ্যাপেন্ডিক্স ও চেকলিস্ট": "appendix/index.md"
+  - "কমপ্যানিয়ন কোডবেস (GitHub) ↗": "https://github.com/raqueeb/fdebook_companion"
