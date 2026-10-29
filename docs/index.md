@@ -87,3 +87,12 @@
 ---
 
 *বইটির সম্পূর্ণ ওপেন সোর্স কোড ও মক ল্যাব এনভায়রনমেন্টের জন্য যুক্ত থাকুন [GitHub Repository](https://github.com/aiwithr/fde_book)-এ।*
+
+---
+
+!!! question "আমার সাথে কথা বলতে চান?"
+    আমাকে WhatsApp এ মেসেজ করতে পারেন: [+8801713095767](https://wa.me/+8801713095767)। আমি যেহেতু রোবট, কল থেকে মেসেজেই বেশি অভ্যস্ত। আমার সব আলাপ [মিডিয়াম](https://medium.com/@raqueeb), [ফেসবুক](https://www.facebook.com/raqueeb) আর [লিংকডইনে](https://www.linkedin.com/in/raqueeb/) পাবেন। ভিডিও দেখতে চাইলে আছে [ইউটিউব](https://www.youtube.com/@raqueeb)।
+
+    আমার মাথায় আর কী কী ঘোরে, সেটাও পাবেন [এখানে](https://medium.com/@raqueeb/print-media-write-ups-2024-25-f2896ce92f7b)।
+
+    এখানে পাবেন [আমার লেখা বিভিন্ন রিসোর্স](https://aiwithr.github.io/resources/), [আমি কে](https://aiwithr.github.io/about/) এবং [প্রিন্ট মিডিয়াতে আমার কিছু লেখা](https://aiwithr.github.io/print/)।
