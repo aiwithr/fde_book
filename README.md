@@ -1,5 +1,5 @@
-# ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল
-### Forward Deployed Engineering (FDE) - Field Manual
+# হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)
+### Hands-on Forward Deployed Engineering (FDE)
 
 [![Read the Book Online](https://img.shields.io/badge/Read%20Online-aiwithr.github.io%2Ffde__book-1a73e8?style=for-the-badge&logo=gitbook&logoColor=white)](https://aiwithr.github.io/fde_book/)
 [![Companion Code](https://img.shields.io/badge/Companion%20Code-raqueeb%2Ffdebook__companion-success?style=for-the-badge&logo=github&logoColor=white)](https://github.com/raqueeb/fdebook_companion)
