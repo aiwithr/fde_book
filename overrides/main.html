@@ -1,22 +1,34 @@
 {% extends "base.html" %}
 
-{% block extrahead %}
-  <!-- Core SEO & Identity -->
+{% block site_meta %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="author" content="Rakibul Hassan (রকিবুল হাসান)">
   <meta name="creator" content="Rakibul Hassan">
   <meta name="publisher" content="Rakibul Hassan">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="keywords" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড-ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Hands-on Forward Deployed Engineering, Forward Deployed Engineering, Forward-Deployed Engineer, প্যাল্যান্টির, প্যালান্টির, প্যালান্টিয়ার, Palantir, Palantir Technologies, গোথাম, Gotham, ইকো ও ডেল্টা টিম, Echo and Delta teams, রকিবুল হাসান, Rakibul Hassan, raqueeb, aiwithr, কৃত্রিম বুদ্ধিমত্তা, বাংলায় কৃত্রিম বুদ্ধিমত্তা, লোকাল এলএলএম, local LLM, on-premise AI, অন-প্রেম এআই, Qwen 2.5, ডিপসিক, DeepSeek, ওপেনকোড হারনেস, OpenCode Harness, ফিল্ড ম্যানুয়াল, Field Manual, enterprise automation, self-healing CI/CD, SDLC">
-  <meta name="description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল, লোকাল এলএলএম, অন-প্রেম অটোমেশন এবং এন্টারপ্রাইজ ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। রকিবুল হাসানের বই।{% endif %}">
+  <meta name="keywords" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Forward Deployed Engineering, Forward-Deployed Engineer, প্যাল্যান্টির, প্যালান্টির, Palantir, রকিবুল হাসান, Rakibul Hassan, aiwithr, লোকাল এলএলএম, local LLM, on-premise AI, অন-প্রেম এআই, Qwen 2.5, ডিপসিক, DeepSeek, ওপেনকোড হারনেস, OpenCode Harness, ফিল্ড ম্যানুয়াল, self-healing CI/CD, SDLC">
+  <meta name="description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - রকিবুল হাসান। সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি।{% else %}{{ config.site_description }}{% endif %}">
+  {% if page.canonical_url %}
+    <link rel="canonical" href="{{ page.canonical_url }}">
+  {% endif %}
+  {% if page.previous_page %}
+    <link rel="prev" href="{{ page.previous_page.url | url }}">
+  {% endif %}
+  {% if page.next_page %}
+    <link rel="next" href="{{ page.next_page.url | url }}">
+  {% endif %}
+{% endblock %}
 
+{% block extrahead %}
   <link rel="icon" href="https://aiwithr.github.io/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="https://aiwithr.github.io/favicon.ico" type="image/x-icon">
 
   <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
-  <meta property="og:site_name" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | কৃত্রিম বুদ্ধিমত্তা | বাংলায়">
-  <meta property="og:type" content="book">
+  <meta property="og:site_name" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | রকিবুল হাসান">
+  <meta property="og:type" content="{% if page.is_homepage %}book{% else %}article{% endif %}">
   <meta property="og:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE){% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | প্যাল্যান্টির মডেল ও অন-প্রেম এআই | By Rakibul Hassan{% endif %}">
-  <meta property="og:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল, লোকাল এলএলএম, অন-প্রেম অটোমেশন এবং ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। রকিবুল হাসানের বই।{% endif %}">
+  <meta property="og:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% elif page and page.title and not page.is_homepage %}{{ page.title }}: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।{% else %}{{ config.site_description }}{% endif %}">
   <meta property="og:url" content="{{ page.canonical_url }}">
   <meta property="og:locale" content="bn_BD">
   <meta property="og:image" content="https://aiwithr.github.io/fde_book/images/social-cover.png">
@@ -27,7 +39,7 @@
   <meta name="twitter:site" content="@raqueeb">
   <meta name="twitter:creator" content="@raqueeb">
   <meta name="twitter:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | হাতেকলমে FDE{% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | By Rakibul Hassan{% endif %}">
-  <meta name="twitter:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল ও অন-প্রেম এআই।{% endif %}">
+  <meta name="twitter:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% elif page and page.title and not page.is_homepage %}{{ page.title }}: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।{% else %}{{ config.site_description }}{% endif %}">
   <meta name="twitter:image" content="https://aiwithr.github.io/fde_book/images/social-cover.png">
 
   <!-- Schema.org JSON-LD Structured Data -->
@@ -47,6 +59,21 @@
         "inLanguage": "bn"
       },
       {
+        "@type": "Person",
+        "@id": "https://aiwithr.github.io/#author",
+        "name": "Rakibul Hassan",
+        "alternateName": ["রকিবুল হাসান", "raqueeb"],
+        "url": "https://aiwithr.github.io/",
+        "sameAs": [
+          "https://raqueeb.wordpress.com/",
+          "https://github.com/raqueeb",
+          "https://medium.com/@raqueeb",
+          "https://twitter.com/raqueeb",
+          "https://linkedin.com/in/raqueeb/",
+          "https://www.youtube.com/@raqueeb"
+        ]
+      }{% if page.is_homepage %},
+      {
         "@type": "Book",
         "@id": "https://aiwithr.github.io/fde_book/#book",
         "name": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)",
@@ -59,7 +86,7 @@
         ],
         "url": "https://aiwithr.github.io/fde_book/",
         "image": "https://aiwithr.github.io/fde_book/images/social-cover.png",
-        "description": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): ল্যাব ছেড়ে ফিল্ডের রিয়েল ক্যাওসে সফটওয়্যার টিকিয়ে রাখার ব্যবহারিক গাইড। প্যাল্যান্টির (Palantir) মডেল, অন-প্রেমিসেস লোকাল এআই, ডিপসিক এবং সেলফ-হিলিং অটোমেশন প্লেবুক।",
+        "description": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল, লোকাল এলএলএম, অন-প্রেম অটোমেশন এবং ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। By Rakibul Hassan.",
         "inLanguage": "bn",
         "genre": [
           "Software Engineering",
@@ -78,23 +105,89 @@
         },
         "isPartOf": {
           "@id": "https://aiwithr.github.io/#website"
+        },
+        "hasPart": [
+          {
+            "@type": "Chapter",
+            "name": "মাস্টার ব্লুপ্রিন্ট ও চ্যাপ্টার ওভারভিউ",
+            "url": "https://aiwithr.github.io/fde_book/fde-field-manual/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "ইন্ট্রোডাকশন: গ্রাউন্ড রিয়েলিটি এবং কাস্টমারের স্টোরি",
+            "url": "https://aiwithr.github.io/fde_book/intro/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "চ্যাপ্টার ১: ফিল্ড ডিসকাভারি ও এসওপি অডিট",
+            "url": "https://aiwithr.github.io/fde_book/chapter-1/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "চ্যাপ্টার ২: লোকাল আর্কিটেকচার ও অন-প্রেম ইন্টেলিজেন্স",
+            "url": "https://aiwithr.github.io/fde_book/chapter-2/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "চ্যাপ্টার ৩: দ্য নিউ এসডিএলসি - এআই কোডিং এজেন্ট ও রেজিলিয়েন্ট পাইপলাইন",
+            "url": "https://aiwithr.github.io/fde_book/chapter-3/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "চ্যাপ্টার ৪: ফিল্ড প্লেবুক ইন অ্যাকশন - বাস্তব কেস স্টাডি",
+            "url": "https://aiwithr.github.io/fde_book/chapter-4/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "চ্যাপ্টার ৫: এফডিই অর্গানাইজেশন স্কেলিং ও ক্যারিয়ার রোডম্যাপ",
+            "url": "https://aiwithr.github.io/fde_book/chapter-5/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "কনক্লুশন: পারফেক্ট হ্যান্ডওভার ও ফিউচার প্রুফিং",
+            "url": "https://aiwithr.github.io/fde_book/conclusion/"
+          },
+          {
+            "@type": "Chapter",
+            "name": "অ্যাপেন্ডিক্স ও ফিল্ড রেফারেন্স",
+            "url": "https://aiwithr.github.io/fde_book/appendix/"
+          }
+        ]
+      }{% else %},
+      {
+        "@type": "Chapter",
+        "@id": "{{ page.canonical_url }}#chapter",
+        "url": "{{ page.canonical_url }}",
+        "name": "{{ page.title }}",
+        "inLanguage": "bn",
+        "isPartOf": {
+          "@type": "Book",
+          "@id": "https://aiwithr.github.io/fde_book/#book",
+          "name": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)",
+          "url": "https://aiwithr.github.io/fde_book/"
+        },
+        "author": {
+          "@id": "https://aiwithr.github.io/#author"
         }
       },
       {
-        "@type": "Person",
-        "@id": "https://aiwithr.github.io/#author",
-        "name": "Rakibul Hassan",
-        "alternateName": ["রকিবুল হাসান", "raqueeb"],
-        "url": "https://aiwithr.github.io/",
-        "sameAs": [
-          "https://raqueeb.wordpress.com/",
-          "https://github.com/raqueeb",
-          "https://medium.com/@raqueeb",
-          "https://twitter.com/raqueeb",
-          "https://linkedin.com/in/raqueeb/",
-          "https://www.youtube.com/@raqueeb"
+        "@type": "BreadcrumbList",
+        "@id": "{{ page.canonical_url }}#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "হোম",
+            "item": "https://aiwithr.github.io/fde_book/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ page.title }}",
+            "item": "{{ page.canonical_url }}"
+          }
         ]
-      }
+      }{% endif %}
     ]
   }
   </script>
