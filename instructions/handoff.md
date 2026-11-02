@@ -32,7 +32,7 @@ fde_book/
 │   ├── intro/index.md                  # [LOCKED - DO NOT EDIT] ইন্ট্রোডাকশন
 │   ├── chapter-1/index.md              # [LOCKED - DO NOT EDIT] চ্যাপ্টার ১: ফিল্ড ডিসকাভারি ও এসওপি অডিট
 │   ├── chapter-2/index.md              # [LOCKED - DO NOT EDIT] চ্যাপ্টার ২: লোকাল আর্কিটেকচার ও অন-প্রেম ইন্টেলিজেন্স
-│   ├── chapter-3/index.md              # চ্যাপ্টার ৩: দ্য নিউ এসডিএলসি ও ইভ্যাল হারনেস
+│   ├── chapter-3/index.md              # [LOCKED - DO NOT EDIT] চ্যাপ্টার ৩: দ্য নিউ এসডিএলসি ও ইভ্যাল হারনেস
 │   ├── chapter-4/index.md              # চ্যাপ্টার ৪: ফিল্ড প্লেবুক (বাস্তব কেস স্টাডি)
 │   ├── chapter-5/index.md              # চ্যাপ্টার ৫: এফডিই অর্গ ও ফিল্ড-টু-কোর লুপ
 │   ├── conclusion/index.md             # কনক্লুশন: হ্যান্ডওভার ও হাইপার-কেয়ার
