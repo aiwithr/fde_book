@@ -1,0 +1,1212 @@
+
+<!doctype html>
+<html lang="bn" class="no-js">
+  <head>
+    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="Rakibul Hassan (রকিবুল হাসান)">
+  <meta name="creator" content="Rakibul Hassan">
+  <meta name="publisher" content="Rakibul Hassan">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="keywords" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Forward Deployed Engineering, Forward-Deployed Engineer, প্যাল্যান্টির, প্যালান্টির, Palantir, রকিবুল হাসান, Rakibul Hassan, aiwithr, লোকাল এলএলএম, local LLM, on-premise AI, অন-প্রেম এআই, Qwen 2.5, ডিপসিক, DeepSeek, ওপেনকোড হারনেস, OpenCode Harness, ফিল্ড ম্যানুয়াল, self-healing CI/CD, SDLC">
+  <meta name="description" content="বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - রকিবুল হাসান। সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি।">
+  
+    <link rel="canonical" href="https://aiwithr.github.io/fde_book/bonus-chapter/">
+  
+  
+    <link rel="prev" href="../conclusion/">
+  
+  
+    <link rel="next" href="../appendix/">
+  
+
+    
+      
+        <title>বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র - হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=SiyamRupali:300,300i,400,400i,700,700i%7CSiyamRupali:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"SiyamRupali";--md-code-font:"SiyamRupali"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link rel="icon" href="https://aiwithr.github.io/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="https://aiwithr.github.io/favicon.ico" type="image/x-icon">
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:site_name" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | রকিবুল হাসান">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)">
+  <meta property="og:description" content="বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।">
+  <meta property="og:url" content="https://aiwithr.github.io/fde_book/bonus-chapter/">
+  <meta property="og:locale" content="bn_BD">
+  <meta property="og:image" content="https://aiwithr.github.io/fde_book/images/social-cover.png">
+  <meta property="og:image:alt" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@raqueeb">
+  <meta name="twitter:creator" content="@raqueeb">
+  <meta name="twitter:title" content="বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র | হাতেকলমে FDE">
+  <meta name="twitter:description" content="বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।">
+  <meta name="twitter:image" content="https://aiwithr.github.io/fde_book/images/social-cover.png">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://aiwithr.github.io/#website",
+        "url": "https://aiwithr.github.io/",
+        "name": "কৃত্রিম বুদ্ধিমত্তা | বাংলায়",
+        "description": "রকিবুল হাসানের AI/ML সাইট — ইন্টেলিজেন্ট সিস্টেমের সন্ধানে: বাংলায় কৃত্রিম বুদ্ধিমত্তা, বই, ভিডিও, রোডম্যাপ ও ওয়ার্কশপ।",
+        "publisher": {
+          "@id": "https://aiwithr.github.io/#author"
+        },
+        "inLanguage": "bn"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://aiwithr.github.io/#author",
+        "name": "Rakibul Hassan",
+        "alternateName": ["রকিবুল হাসান", "raqueeb"],
+        "url": "https://aiwithr.github.io/",
+        "sameAs": [
+          "https://raqueeb.wordpress.com/",
+          "https://github.com/raqueeb",
+          "https://medium.com/@raqueeb",
+          "https://twitter.com/raqueeb",
+          "https://linkedin.com/in/raqueeb/",
+          "https://www.youtube.com/@raqueeb"
+        ]
+      },
+      {
+        "@type": "Chapter",
+        "@id": "https://aiwithr.github.io/fde_book/bonus-chapter/#chapter",
+        "url": "https://aiwithr.github.io/fde_book/bonus-chapter/",
+        "name": "বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র",
+        "inLanguage": "bn",
+        "isPartOf": {
+          "@type": "Book",
+          "@id": "https://aiwithr.github.io/fde_book/#book",
+          "name": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)",
+          "url": "https://aiwithr.github.io/fde_book/"
+        },
+        "author": {
+          "@id": "https://aiwithr.github.io/#author"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://aiwithr.github.io/fde_book/bonus-chapter/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "হোম",
+            "item": "https://aiwithr.github.io/fde_book/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র",
+            "item": "https://aiwithr.github.io/fde_book/bonus-chapter/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#-" class="md-skip">
+          কনটেন্টে যান
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="হেডার">
+    <a href=".." title="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)" class="md-header__button md-logo" aria-label="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="অনুসন্ধান করুন" placeholder="অনুসন্ধান করুন" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="অনুসন্ধান করুন">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="শেয়ার" aria-label="শেয়ার" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="রিসেট" aria-label="রিসেট" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            অনুসন্ধান শুরু করা হচ্ছে
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/aiwithr/fde_book" title="রিপোজিটরিতে যান" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aiwithr/fde_book
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="ন্যাভিগেশন" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)" class="md-nav__button md-logo" aria-label="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/aiwithr/fde_book" title="রিপোজিটরিতে যান" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aiwithr/fde_book
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    হোম
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fde-field-manual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    মাস্টার ব্লুপ্রিন্ট
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ইন্ট্রোডাকশন: গ্রাউন্ড রিয়েলিটি
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    চ্যাপ্টার ১: ফিল্ড ডিসকভারি ও এসওপি
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    চ্যাপ্টার ২: লোকাল আর্কিটেকচার
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    চ্যাপ্টার ৩: দ্য নিউ এসডিএলসি
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    চ্যাপ্টার ৪: ফিল্ড প্লেবুক
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    কনক্লুশন ও হ্যান্ডওভার
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    বোনাস চ্যাপ্টার: ৬০-৩০-১০ সূত্র
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="সূচি তালিকা">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      সূচি তালিকা
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ১. কেন এই চ্যাপ্টারটা প্রথমে লিখতে চাইনি?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ২. এন্টারপ্রাইজের গ্রাউন্ড রিয়েলিটি ও ৬০-৩০-১০ হিসাব
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৩. প্রথম ৬০%: স্ক্যান করা মানেই ডিজিটাইজেশন নয়!
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৪. পরের ৩০%: সিম্পল অটোমেশন ও ৩০-৩৫ ইনপুটের ডিসিশন ট্রি
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৫. বাকি ৭% থেকে ১০%: আসল কৃত্রিম বুদ্ধিমত্তা ও হিউম্যান অগমেন্টেশন
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৬. স্মার্ট এফডিইর আসল কারিশমা কোথায়?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৭. বোনাস চ্যাপ্টারের লার্নিং
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    অ্যাপেন্ডিক্স ও চেকলিস্ট
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/raqueeb/fdebook_companion" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    কমপ্যানিয়ন কোডবেস (GitHub) ↗
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="সূচি তালিকা">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      সূচি তালিকা
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ১. কেন এই চ্যাপ্টারটা প্রথমে লিখতে চাইনি?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ২. এন্টারপ্রাইজের গ্রাউন্ড রিয়েলিটি ও ৬০-৩০-১০ হিসাব
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৩. প্রথম ৬০%: স্ক্যান করা মানেই ডিজিটাইজেশন নয়!
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৪. পরের ৩০%: সিম্পল অটোমেশন ও ৩০-৩৫ ইনপুটের ডিসিশন ট্রি
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৫. বাকি ৭% থেকে ১০%: আসল কৃত্রিম বুদ্ধিমত্তা ও হিউম্যান অগমেন্টেশন
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৬. স্মার্ট এফডিইর আসল কারিশমা কোথায়?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ৭. বোনাস চ্যাপ্টারের লার্নিং
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="-">বোনাস চ্যাপ্টার: এআই হাইপ বনাম গ্রাউন্ড রিয়েলিটি - ৬০-৩০-১০ সূত্র<a class="headerlink" href="#-" title="Permanent link">&para;</a></h1>
+<hr />
+<h3 id="_1">১. কেন এই চ্যাপ্টারটা প্রথমে লিখতে চাইনি?<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>সত্যি কথা বলতে, শুরুতে আমি এই চ্যাপ্টারটা বইয়ে রাখতেই চাইনি। কারণ চারপাশে যখন জেনারেটিভ এআই আর এলএলএম নিয়ে এত মাতামাতি, তখন এই কথাগুলো শুনলে অনেকের কাছেই বেশ 'অ্যান্টি-এআই' ধরনের কথাবার্তা মনে হতে পারে। কেউ কেউ হয়তো ভাববেন, পুরো একটা বই জুড়ে লোকাল এআই আর কোডিং এজেন্টের কথা বলার পর লেখক নিজেই আবার এআইয়ের বিরুদ্ধে বলছেন কেন?</p>
+<p>কিন্তু পাণ্ডুলিপি শেষ করার পর এডিটোরিয়াল রিভিশনের সময় মনে হলো, বোনাস চ্যাপ্টার হিসেবে হলেও এই সত্যিটা লিখে যাওয়া দরকার। কারণ আমার কথাগুলো মোটেই এআইয়ের বিরুদ্ধে নয় - বরং এআইকে ভুল জায়গায় ব্যবহার করে যেভাবে পুরো প্রযুক্তিটার বদনাম করা হচ্ছে, তার বিরুদ্ধে। আপনি যখন গলায় <strong>'ডেপ্লয়-কো ইনক'</strong>-এর আইডি কার্ড ঝুলিয়ে দেশের কোনো এন্টারপ্রাইজের অন-গ্রাউন্ডে নামবেন, প্রথম সপ্তাহেই এই বাস্তবতাটার মুখোমুখি আপনাকে হতেই হবে।</p>
+<p>আজকাল আমরা যখন দেখি বড় বড় কোম্পানি এআই প্রজেক্টে নেমেও শেষমেশ ঠিকমতো কাজটা তুলতে পারছে না, তখন একটু গভীরে তাকালেই আসল গলদটা ধরা পড়ে। আন্তর্জাতিক গবেষণাগুলোতেও দেখা যাচ্ছে, আশি শতাংশের বেশি এন্টারপ্রাইজ এআই প্রজেক্ট পাইলট বা পিওসি (PoC) ধাপেই আটকে যাচ্ছে। কারণ কোম্পানিগুলোর ম্যানেজমেন্ট ভাবছে, এআই বোধহয় আলাদিনের চেরাগের মতো কোনো জাদুর কাঠি - অফিসের সব কিছু, সব সমস্যার সমাধান সে একাই করে দেবে। এই ভাবনা থেকে তারা তাদের অফিসের সব ধরনের সমস্যা চোখ বন্ধ করে সরাসরি এআই ওয়ার্কফ্লোতে পাঠিয়ে দিচ্ছে। ফলাফল কী হচ্ছে? কোম্পানিগুলোর প্রচুর টাকা আর সময় নষ্ট হচ্ছে, কিন্তু কাজের কাজ বা চূড়ান্ত ফলাফল কিছুই আসছে না। ভুল বলেছি, বলুন?</p>
+<hr />
+<h3 id="-_1">২. এন্টারপ্রাইজের গ্রাউন্ড রিয়েলিটি ও ৬০-৩০-১০ হিসাব<a class="headerlink" href="#-_1" title="Permanent link">&para;</a></h3>
+<p>আমি যখন নিজে দেশের অনেক এন্টারপ্রাইজে গিয়েছি এবং সেখানে বিভিন্ন পর্যায়ের মানুষের সঙ্গে সামনাসামনি বসে আলাপ করেছি, তখন একটা জিনিস খুব পরিষ্কার বুঝতে পেরেছি। বাংলাদেশে এআইয়ের উপযোগিতা বা সরাসরি এআই ব্যবহার করে চূড়ান্ত ফলাফল তুলে আনার মতো জায়গায় আমাদের বেশিরভাগ অর্গানাইজেশন এখনো পৌঁছায়নি।</p>
+<p>কেন পৌঁছায়নি? কারণ কোনো বিল্ডিংয়ের একতলা আর দোতলা না বানিয়ে আপনি সরাসরি তিনতলার ছাদ ঢালাই দিতে পারবেন না। পুরনো একটা কথা আছে, 'গারবেজ ইন, গারবেজ আউট'। জেনারেটিভ এআইয়ের যুগে সমস্যাটা আরও ভয়াবহ। আপনি যদি অগোছালো, ভুল বা অসম্পূর্ণ ডেটা এলএলএমের ভেতর ঢোকান, সে কিন্তু সাধারণ সফটওয়্যারের মতো এরর মেসেজ দিয়ে থেমে যাবে না। সে চমৎকার ভদ্র ভাষায় আত্মবিশ্বাসের সাথে ভুল হিসাব বা হ্যালুসিনেশন তৈরি করে দেবে।</p>
+<p>আমার অভিজ্ঞতায় আমাদের দেশের অর্গানাইজেশনগুলোর কাজের ধরন বিশ্লেষণ করলে দেখা যায়, পুরো সমস্যার জগতটা তিনটা আলাদা ভাগে বিভক্ত: <strong>৬০% ডিজিটাইজেশন, ৩০% সিম্পল অটোমেশন, আর মাত্র ৭% থেকে ১০% আসল কৃত্রিম বুদ্ধিমত্তা (এআই)।</strong></p>
+<p>অবশ্য এই অনুপাতটা কোম্পানি থেকে কোম্পানি ভ্যারি করতে পারে। আমাদের দেশের গার্মেন্টস, ম্যানুফ্যাকচারিং, বন্দর, হাসপাতাল বা সরকারি দপ্তরের মতো প্রথাগত এন্টারপ্রাইজে এই ৬০-৩০-১০ অনুপাত একদম খাঁটি বাস্তবতা। আর বিকাশ-নগদের মতো ফিনটেক, টেলিকম বা ই-কমার্সের মতো ডিজিটাল-ফার্স্ট কোম্পানিতে - যেখানে ডেটা আগে থেকেই ডেটাবেজে আছে - সেখানে প্রথম ৬০%-এর লড়াইটা কাগুজে খাতার বদলে হয় <strong>ডেটা সাইলো (Data Silos)</strong> ভাঙা এবং এক ডিপার্টমেন্টের ডেটার সাথে আরেক ডিপার্টমেন্টের ডেটার ফরম্যাট মেলানো নিয়ে।</p>
+<p>নিচের ডায়াগ্রামে দেখুন, একটা অর্গানাইজেশনের প্রতিদিনের কাজগুলো আসলে কোন ধাপে কতটুকু ছড়িয়ে থাকে:</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph L1["১ম ধাপ: ৬০% কাজ - আসল ডিজিটাইজেশন ও ডেটা রেডিনেস"]
+        D1["ভাঙা প্রসেস ছাঁটাই করে খাতা ও কাগজ থেকে এক্সেল বা ডেটাবেজে রূপান্তর (ফর্ম ও OCR)"]
+    end
+
+    subgraph L2["২য় ধাপ: ৩০% কাজ - সিম্পল অটোমেশন"]
+        D2["৩০-৩৫টা চেনা ইনপুটের ডিসিশন ট্রি, কনফিগ-ড্রিভেন রুল ও ডিটারমিনিস্টিক স্ক্রিপ্ট"]
+    end
+
+    subgraph L3["৩য় ধাপ: ৭% থেকে ১০% কাজ - জেনারেটিভ এআই"]
+        D3["অগোছালো ভাষার ইন্টেলিজেন্ট ট্রায়াজ ও মানুষের সিদ্ধান্তকে অগমেন্ট করা"]
+    end
+
+    D1 --&gt;|"পরিষ্কার ও সার্চেবল ডিজিটাল ডেটা"| D2
+    D2 --&gt;|"যেখানে বাঁধাধরা নিয়মে কুলাচ্ছে না"| D3</code></pre>
+<p>এই তিনটা ধাপের পার্থক্য না বোঝার কারণেই আজকের অধিকাংশ এআই প্রজেক্ট অন-গ্রাউন্ডে গিয়ে আটকে যাচ্ছে। চলুন, প্রতিটা ধাপের ভেতরের আসল চেহারাটা একটু খুলে দেখি।</p>
+<hr />
+<h3 id="_2">৩. প্রথম ৬০%: স্ক্যান করা মানেই ডিজিটাইজেশন নয়!<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>আমাদের দেশের অর্গানাইজেশনগুলোর ভেতরে তাকালে আমার কাছে মনে হয়েছে, প্রায় <strong>৬০% কাজই</strong> এখনো আটকে আছে প্রাথমিক <strong>ডিজিটাইজেশনের</strong> ধাপে। সহজ কথায়, চ্যাপ্টার ১-এর সেই লাল মলাটের ম্যানুয়াল খাতা কিংবা ফাইলের স্তূপ থেকে তথ্যগুলোকে আগে ডিজিটাল ফর্মে তুলে আনা।</p>
+<p>এখানে আমাদের অফিসগুলোতে একটা মারাত্মক ভুল ধারণা কাজ করে। আমরা প্রায়ই কাগুজে চালান বা ফাইল স্ক্যানার মেশিনে ঢুকিয়ে পিডিএফ বা ছবি (<code>JPEG/PDF</code>) বানিয়ে কম্পিউটারে সেভ করাটাকেই 'ডিজিটাইজেশন' বলে ভাবি। অনেক অফিসে গিয়ে শুনবেন, <em>"ভাই, আমাদের সব ফাইল ফুল ডিজিটাইজড, সব স্ক্যান করে সার্ভারে রাখা আছে!"</em></p>
+<p>কিন্তু প্রকৃতপক্ষে স্ক্যান করাকে কখনোই ডিজিটাইজেশন বলা যায় না। একটা কাগজের ছবি তুলে হার্ডডিস্কে রাখা মানে ডিজিটাল আলমারিতে কাগজের ছবি জমিয়ে রাখা - ওটার ভেতর থেকে কম্পিউটার নিজে কোনো হিসাব করতে পারে না, কোয়েরি চালাতে পারে না। যতক্ষণ পর্যন্ত ওই স্ক্যান করা ছবিকে টেক্সট বা ইন্টেলিজেন্ট ডেটা আকারে ট্রান্সফর্ম না করা হচ্ছে, ততক্ষণ সেটাকে ডিজিটাইজেশন বলা যাবে না।</p>
+<p>এখানে ডিজিটাইজেশন মানে হলো কাগুজে খাতার তথ্যগুলোকে সরাসরি এক্সেল শিট, ডেটাবেজ টেবিল বা ডিজিটাল ফর্মে নিয়ে আসা, যাতে প্রতিটা সংখ্যা আর অক্ষর আলাদাভাবে প্রসেস করা যায়। তবে এই ৬০% ডিজিটাইজেশন করতে গিয়ে একজন এফডিইকে দুটো ব্যাপারে খুব সতর্ক থাকতে হবে:</p>
+<ol>
+<li><strong>ভাঙা রাস্তার ওপর পিচ ঢালাই করবেন না (Process Re-engineering First):</strong> কোনো অফিসে যদি একটা ফাইলে অকারণে চার টেবিল ঘুরে চারজন অফিসারের সই নেয়ার পুরনো নিয়ম থাকে, আর আপনি সেটাকে ডিজিটাইজ করে চারটা ডিজিটাল ফর্ম বানিয়ে দেন, তাহলে কিন্তু কাজের জট কমবে না। কাগুজে লাল ফিতার বদলে তখন তৈরি হবে 'ডিজিটাল লাল ফিতা'। তাই চ্যাপ্টার ১-এর শ্যাডো সেশনের নিয়মে আগে বাড়তি ধাপগুলো ছাঁটাই করে প্রসেসটাকে স্লিম করতে হবে, তারপর সেটাকে ডিজিটাল ফর্মে আনতে হবে।</li>
+<li><strong>সাধারণ ওসিআর (OCR) বনাম আধুনিক ভিশন মডেলের হাইব্রিড ব্যবহার:</strong> আজকাল অনেকে প্রশ্ন করেন, আধুনিক ভিশন-ল্যাঙ্গুয়েজ মডেল (VLM) তো সরাসরি হাতের লেখা বা চালানের ছবি দেখেই এক ধাপে <code>JSON</code> ডেটা বানিয়ে দিতে পারে, তাহলে আলাদা করে পুরনো ওসিআর বা ফর্মের কথা কেন আসছে? উত্তরটা লুকিয়ে আছে অন-গ্রাউন্ডের খরচের অঙ্কে। দিনে দশ হাজার ছাপানো চালান বা ফর্ম যদি আপনি বিশাল ভিশন মডেলের ভেতর দিয়ে চালাতে যান, তাহলে আপনার লোকাল সার্ভারের জিপিইউ (GPU) ও র‍্যাম হাঁপিয়ে উঠবে, আর ক্লাউড এপিআই হলে মাস শেষে বিশাল বিল আসবে। তাই স্মার্ট এফডিইরা এখানে হাইব্রিড পথ ধরেন - ৯০% নিয়মিত কাজের জন্য সহজ ডিজিটাল ইনপুট ফর্ম বা হালকা ওসিআর ব্যবহার করেন, আর শুধুমাত্র বাঁকা হাতের লেখা বা জটিল আনস্ট্রাকচার্ড কাগজের জন্য ভিশন মডেল কাজে লাগান।</li>
+</ol>
+<p>অর্গানাইজেশনগুলোতে প্রথম পর্যায়ে এই ৬০% ডিজিটাইজেশনটাই সবচেয়ে বড় বটলনেক। বিশ্বাস করুন, এই ৬০% ডিজিটাইজেশন আর ডেটা ক্লিয়ারিংয়ের কাজটা একবার ঠিকমতো শেষ করে ফেলতে পারলে পরের বাকি কাজগুলো পানির মতো সহজ হয়ে যায়।</p>
+<div class="admonition warning">
+<p class="admonition-title">স্ক্যান বনাম ডিজিটাইজেশন: এই ভুলটা করবেন না</p>
+<p>ফোল্ডার ভর্তি স্ক্যান করা পিডিএফ ফাইল মানে ডিজিটাল ডেটা নয়। ডেটা যতক্ষণ না রো-কলামের টেবিলে (<code>SQLite</code>, <code>PostgreSQL</code> বা অন্তত পরিষ্কার এক্সেল/JSON ফরম্যাটে) আসছে এবং এক ডিপার্টমেন্টের ডেটার সংজ্ঞা অন্য ডিপার্টমেন্টের সাথে মিলছে, ততক্ষণ তার ওপর কোনো অটোমেশন বা এআই মডেল চাপাবেন না।</p>
+</div>
+<hr />
+<h3 id="-_2">৪. পরের ৩০%: সিম্পল অটোমেশন ও ৩০-৩৫ ইনপুটের ডিসিশন ট্রি<a class="headerlink" href="#-_2" title="Permanent link">&para;</a></h3>
+<p>ডিজিটাইজেশনের ধাপ পার হয়ে পরিষ্কার ডেটা যখন আপনার হাতে চলে এল, তখন শুরু হচ্ছে দ্বিতীয় অংশ - <strong>সিম্পল অটোমেশন</strong>।</p>
+<p>অনেকে মনে করেন এন্টারপ্রাইজের সিদ্ধান্তগুলো বোধহয় রকেট সায়েন্সের মতো জটিল। কিন্তু অন-গ্রাউন্ডে কাজ করতে গিয়ে আমি দেখেছি, আমাদের বিভিন্ন ডিপার্টমেন্টে কিন্তু খুব জটিল কোনো ডিসিশন ট্রি নেই। একটা অপারেশনাল সিদ্ধান্ত নিতে আপনাকে একশো-দুইশোটা অজানা ডিসিশন খুঁজতে হবে না। প্রায় সব ক্ষেত্রেই দেখা যায়, মাত্র <strong>ত্রিশ থেকে পঁয়ত্রিশটা চেনা ইনপুট</strong> থাকলেই পরিষ্কার সিদ্ধান্ত নেওয়া যায়।</p>
+<p>আর ত্রিশ-পঁয়ত্রিশটা ইনপুটের এই হিসাব মেলানোর জন্য কি আপনার বিলিয়ন প্যারামিটারের এলএলএম দরকার আছে? একদমই না। এটা সিম্পল অটোমেশন বা সাধারণ ডিসিশন ট্রির মাধ্যমেই নিখুঁতভাবে প্রয়োগ করা যায়।</p>
+<p>একটু পেছনে তাকিয়ে দেখুন, এই বইয়ের আগের চ্যাপ্টারগুলোতে আমরা ঠিক এই কাজটাই করেছি:
+* চ্যাপ্টার ১-এ ম্যানেজারের ফিজিক্যাল সইয়ের বদলে ওটিপি অ্যাপ্রুভাল।
+* চ্যাপ্টার ৩-এ হেড অ্যাকাউন্ট্যান্ট সাহেবের পনেরো লাখ টাকার ওপরে ৫% রিবেট আর ১৫% ভ্যাটের ফাংশন।
+* চ্যাপ্টার ৪-এ ওএলটি সুইচে <code>LOS</code> অ্যালার্ম দেখলে সরাসরি ফাইবার টিমকে অ্যালার্ট পাঠানো এবং বন্দরের তিনটা কাগজের ওজনের ১% টলারেন্স মেলানো।</p>
+<p>এখানে একটা ছোট আর্কিটেকচারাল গার্ডরেইল মনে রাখবেন। ত্রিশ-পঁয়ত্রিশটা ইনপুটের নিয়মগুলো যদি আপনি কোডের ভেতরে একটার পর একটা নেস্টেড <code>if-else</code> দিয়ে হার্ডকোড করে ফেলেন, তাহলে ছয় মাস পর ক্লায়েন্টের নতুন নতুন শর্ত যোগ হতে হতে কোডটা জট পাকিয়ে স্প্যাগেটি কোড হয়ে যাবে। তাই চ্যাপ্টার ৫-এর ফিল্ড-টু-কোর প্যাটার্নের মতো ব্যবসার শর্তগুলো (<code>tolerance_pct</code> বা ডিসিশন টেবিল) রাখবেন আলাদা কনফিগ ফাইলে (<code>JSON</code> বা <code>YAML</code>), আর পাইথন স্ক্রিপ্টটা শুধু সেই কনফিগ পড়ে সিদ্ধান্ত নেবে।</p>
+<p>এর মানে হলো, একটা অর্গানাইজেশনের প্রায় <strong>৩০% কাজ</strong> আমরা কোনো এআই ছাড়াই শুধুমাত্র এই সিম্পল অটোমেশনের মাধ্যমে শতভাগ নির্ভুলভাবে শেষ করতে পারি। এখানে টোকেন খরচ শূন্য, হ্যালুসিনেশনের ভয় শূন্য, আর গতি রকেটের মতো।</p>
+<hr />
+<h3 id="_3">৫. বাকি ৭% থেকে ১০%: আসল কৃত্রিম বুদ্ধিমত্তা ও হিউম্যান অগমেন্টেশন<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>৬০% ডিজিটাইজেশন আর ৩০% সিম্পল অটোমেশন বাদ দিলে হাতে বাকি থাকে কতটুকু? <strong>মাত্র ৭% থেকে ১০% কাজ।</strong></p>
+<p>সত্যি বলতে কী, একটা সাধারণ অর্গানাইজেশনে এই ৭% থেকে ১০% জায়গাতেই রয়েছে সেই কাজ, যাকে আসলে কৃত্রিম বুদ্ধিমত্তা বা জেনারেটিভ এআইয়ের কাজ বলা যায়। অর্গানাইজেশনে এর সরাসরি কাজের ক্ষেত্র এখনো বেশ সীমাবদ্ধ এবং সুনির্দিষ্ট।</p>
+<p>আজকাল চায়ের আড্ডায় বা সোশ্যাল মিডিয়ায় একটা ফিয়ার খুব ছড়ানো হয় - এআই এসে রাতারাতি অফিসের সব মানুষের চাকরি খেয়ে ফেলবে (Human Replacement)। কিন্তু আপনি যখন ৬০-৩০-১০ সূত্রের লেন্স দিয়ে তাকাবেন, তখন আসল ছবিটা পরিষ্কার হয়ে যাবে। এখানে একটা সূক্ষ্ম পার্থক্য বোঝা জরুরি: এআই পুরো একটা <strong>মানুষকে (Job)</strong> প্রতিস্থাপন করে না, বরং মানুষের প্রতিদিনের কাজের ভেতরকার একঘেয়ে <strong>কিছু অংশকে (Task)</strong> প্রতিস্থাপন করে। জেনারেটিভ এআই দিয়ে সরাসরি মানুষের শ্রম প্রতিস্থাপন করার মতো সেই কাজ অর্গানাইজেশনে আছে ওই <strong>৭% থেকে ১০%</strong>, যা পরিমাণে খুবই কম।</p>
+<p>এই ৭% থেকে ১০% হলো সেই আসল ইন্টেলিজেন্স, যার মূল কাজ মানুষকে অফিস থেকে বের করে দেয়া নয় - বরং মানুষের বুদ্ধিমত্তাকে <strong>অগমেন্ট (Augment)</strong> করা, মানে তাঁর হাতকে আরও শক্তিশালী করা। যেমন:
+* চ্যাপ্টার ২-এ কাস্টমার যখন ভাঙা ভাঙা বাংলায় আবেগ মিশিয়ে লম্বা মেসেজ লিখছেন, যেখানে সাধারণ <code>if-else</code> নিয়ম দিয়ে কুলাচ্ছে না, সেখানে লোকাল এলএলএম বসিয়ে মেসেজের আসল ক্যাটেগরি আর আর্জেন্সি বের করে সাপোর্ট স্টাফের স্ক্রিনে সাজিয়ে দেয়া।
+* কিংবা চ্যাপ্টার ৫-এ ব্যাংকের লোন অফিসারের সামনে তিনশো পাতার ফাইলের নামের বানান আর টাকার অঙ্কের অসঙ্গতিগুলো কয়েক সেকেন্ডে হাইলাইট করে দেয়া, যাতে মানুষটা তিন ঘণ্টার ক্লান্তিকর খোঁজাখুঁজি পনেরো মিনিটে শেষ করে আসল ব্যবসায়িক সিদ্ধান্তে মনোযোগ দিতে পারেন।</p>
+<p>স্টাফরা যখন দেখবেন আপনার বসানো এআই তাঁদের চাকরি খেতে আসেনি, বরং তাঁদের ঘাড় থেকে ওই ৭-১০% মাথাব্যথার কাজটুকু নামিয়ে নিচ্ছে, তখন চ্যাপ্টার ১-এর সেই অটোমেশন ফিয়ার এক নিমেষেই কেটে যাবে।</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">কাজের ধাপ ও পরিধি</th>
+<th style="text-align: left;">অর্গানাইজেশনে কাজের হার</th>
+<th style="text-align: left;">আসল সমাধান কী?</th>
+<th style="text-align: left;">ভুল এআই অ্যাপ্রোচ (টাকা নষ্টের কারণ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>১. আসল ডিজিটাইজেশন</strong></td>
+<td style="text-align: left;"><strong>~৬০%</strong></td>
+<td style="text-align: left;">প্রসেস স্লিম করে খাতা ও কাগজ থেকে ফর্ম, ওসিআর (OCR) ও ডেটাবেজে রূপান্তর</td>
+<td style="text-align: left;">স্ক্যান করা ছবিকেই ডিজিটাইজেশন ভাবা এবং নোংরা ডেটা সরাসরি চ্যাটবটে পাঠানো</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>২. সিম্পল অটোমেশন</strong></td>
+<td style="text-align: left;"><strong>~৩০%</strong></td>
+<td style="text-align: left;">৩০-৩৫টা ইনপুটের কনফিগ-ড্রিভেন ডিসিশন ট্রি, পাইথন স্ক্রিপ্ট ও বিজনেস রুল</td>
+<td style="text-align: left;">সাধারণ হিসাব ও বাঁধাধরা নিয়মের কাজও অকারণে এলএলএম প্রম্পটে পাঠিয়ে দেয়া</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>৩. জেনারেটিভ এআই</strong></td>
+<td style="text-align: left;"><strong>~৭% - ১০%</strong></td>
+<td style="text-align: left;">আনস্ট্রাকচার্ড ভাষা বোঝা, সামারি ও মানুষের সিদ্ধান্তকে অগমেন্ট করা</td>
+<td style="text-align: left;">মানুষ ছাড়াই ১০০% স্বয়ংক্রিয় সিদ্ধান্তের দায়িত্ব অন্ধভাবে এআইয়ের হাতে ছেড়ে দেয়া</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_4">৬. স্মার্ট এফডিইর আসল কারিশমা কোথায়?<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>এখন পুরো ছবিটা একসাথে মিলিয়ে দেখুন। অর্গানাইজেশনে এআই নিয়ে আমরা আজ যে বিপুল টাকা বিনিয়োগ করছি বা সময় দিচ্ছি, তাতে বড় সমস্যাটা তৈরি হচ্ছে কেন? কারণ আমরা ৬০% ডিজিটাইজেশন আর ৩০% সিম্পল অটোমেশনের পার্থক্য না বুঝে, ১০০% সমস্যাই জেনারেটিভ এআইয়ের কাছে পাঠিয়ে দিচ্ছি।</p>
+<p>ফলে কী ঘটছে? যে ৯০% কাজ এলএলএমের করারই কথা নয়, সেখানে গিয়ে সে হ্যালুসিনেট করছে, ভুল হিসাব দিচ্ছে আর ক্লাউড বিল বাড়াচ্ছে। এতে ক্লায়েন্ট বিরক্ত হয়ে ভাবছেন এআই জিনিসটাই বুঝি কাজের না। অর্থাৎ আমরা সঠিকভাবে এআই ব্যবহার করতে জানি না বলেই অর্গানাইজেশনে এআইয়ের মূল কাজের পরিধি উল্টো সংকুচিত হয়ে যাচ্ছে। ক্লায়েন্ট একবার এআইতে ভরসা হারালে, তাকে ফেরত আনা ডিফিকল্ট হবে।</p>
+<p>ঠিক এই জায়গাতেই একজন ভালো, স্মার্ট <strong>ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ার (FDE)</strong> পুরো খেলাটা ঘুরিয়ে দিতে পারেন। কারণ একজন দক্ষ এফডিই ল্যাপটপ খুলে প্রথম দিনেই প্রম্পট লিখতে বসবেন না। তিনি অন-গ্রাউন্ডে নেমে পুরো ওয়ার্কফ্লোটা এমনভাবে ডিজাইন করবেন, যাতে প্রতিটা সমস্যার জন্য সঠিক টুলটা বরাদ্দ থাকে:
+১. প্রথমে তিনি দেখবেন কোথায় ডেটা এখনো কাগজে, স্ক্যান করা ছবির ভেতর বা বিচ্ছিন্ন ডেটা সাইলোতে বন্দী হয়ে আছে। বাড়তি ম্যানুয়াল ধাপ ছেঁটে ফেলে সেখানে সহজ ইনপুট ফর্ম ও ওসিআর (OCR) বসিয়ে <strong>৬০% ডিজিটাইজেশনের</strong> বটলনেক দূর করবেন।
+২. এরপর ডোমেইন এক্সপার্টের পাশে বসে ৩০-৩৫টা ইনপুটের নিয়মগুলো বের করে আনবেন এবং কনফিগ-ড্রিভেন ডিসিশন ট্রি ও পাইথন কোড দিয়ে <strong>৩০% সিম্পল অটোমেশন</strong> দাঁড় করাবেন।
+৩. আর সবশেষে, যেখানে মানুষের ভাষা, অস্পষ্টতা বা জটিল প্রসঙ্গ বোঝার দরকার হচ্ছে, ঠিক সেই <strong>৭% থেকে ১০% জায়গায়</strong> জেনারেটিভ এআই বসিয়ে স্টাফদের কাজকে অগমেন্ট করবেন।</p>
+<hr />
+<h3 id="_5">৭. বোনাস চ্যাপ্টারের লার্নিং<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>ভবিষ্যতের টেক দুনিয়ায় সবচেয়ে দামি ইঞ্জিনিয়ার তিনি হবেন না, যিনি সব সমস্যার গায়ে এআইয়ের স্টিকার লাগিয়ে দেন। সবচেয়ে দামি হবেন সেই স্মার্ট এফডিই, যিনি কাস্টমারের ফ্লোরে দাঁড়িয়ে স্পষ্টভাবে বলতে পারবেন - <em>"ভাই, আপনার এই ৬০% কাজের জন্য আগে আসল ডিজিটাইজেশন দরকার, এই ৩০% কাজের জন্য সাধারণ ডিসিশন ট্রিই যথেষ্ট, আর বাকি এই ১০% জায়গায় আমি আপনাকে দারুণ একটা এআই মডেল বসিয়ে দিচ্ছি।"</em></p>
+<p>যখন আপনি এভাবে চিন্তা করতে শিখবেন, তখন দেখবেন ক্লায়েন্টের একটা টাকাও অপচয় হচ্ছে না, আর ওই ৭-১০% জায়গার এআইটুকু তখন সত্যিকারের জাদুর মতোই কাজ করছে।</p>
+<p><em>(পরবর্তী পাতায় যুক্ত থাকা <strong>অ্যাপেন্ডিক্স ও ফিল্ড রেফারেন্স</strong> অংশে আপনার অন-গ্রাউন্ডে নামার চেকলিস্ট, ল্যাপটপে কোড চালানোর গাইড এবং সম্পূর্ণ ডিকশনারি দিলাম।)</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  উপরে ফিরে যাও
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="ফুটার" >
+        
+          
+          <a href="../conclusion/" class="md-footer__link md-footer__link--prev" aria-label="পূর্ববর্তী: কনক্লুশন ও হ্যান্ডওভার">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                পূর্ববর্তী
+              </span>
+              <div class="md-ellipsis">
+                কনক্লুশন ও হ্যান্ডওভার
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../appendix/" class="md-footer__link md-footer__link--next" aria-label="পরে: অ্যাপেন্ডিক্স ও চেকলিস্ট">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                পরে
+              </span>
+              <div class="md-ellipsis">
+                অ্যাপেন্ডিক্স ও চেকলিস্ট
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      সৃজনশীল লাইসেন্সিং ২০২৪ - ২০২৬ &copy; Rakibul Hassan (রকিবুল হাসান) &middot; <a href='https://aiwithr.github.io/'>aiwithr.github.io</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/raqueeb/fdebook_companion" target="_blank" rel="noopener" title="Official Companion Codebase (raqueeb/fdebook_companion)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/aiwithr/fde_book" target="_blank" rel="noopener" title="Book Source Repository (aiwithr/fde_book)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://medium.com/@raqueeb" target="_blank" rel="noopener" title="medium.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M369.4 32c43.4 0 78.6 35.2 78.6 78.6v83.8c-1.9-.1-3.8-.2-5.7-.2h-.4c-10 0-22.3 2.4-31.1 6.8-10 4.6-18.7 11.5-26 20.6-11.8 14.6-18.9 34.3-20.6 56.4-.1.7-.1 1.3-.2 2s-.1 1.2-.1 1.9c-.1 1.2-.1 2.4-.1 3.6 0 1.9-.1 3.8 0 5.8 1.2 50.1 28.2 90.2 76.3 90.2 2.7 0 5.3-.1 7.9-.4v20.4c0 43.4-35.2 78.6-78.6 78.6L78.6 480C35.2 480 0 444.8 0 401.4V110.6C0 67.2 35.2 32 78.6 32zM82.3 138.9l.3.1c13.2 3 19.8 7.4 19.8 23.4v187.2c0 16-6.7 20.4-19.9 23.4l-.3.1v2.8H135v-2.8l-.3-.1c-13.2-3-19.9-7.4-19.9-23.4V173.3l86.1 202.5h4.9l88.6-208.2v186.6c-1.1 12.6-7.8 16.5-19.7 19.2l-.3.1v2.7h91.9v-2.7l-.3-.1c-11.9-2.7-18.7-6.6-19.9-19.2l-.1-191.8h.1c0-16 6.7-20.4 19.9-23.4l.3-.1v-2.7h-72.2l-67 157.4-67-157.4H82.3zM448 340.3c-25.1-7.4-43-35.1-41.2-67.8h41.1v67.8zm-6.4-135.6c2.3 0 4.4.3 6.4.9V263h-40.2c1.5-33.6 13.6-57.9 33.8-58.3"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://m.me/raqueeb" target="_blank" rel="noopener" title="m.me" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256.6 8C116.6 8 8 110.3 8 248.6c0 72.3 29.7 134.8 78.1 177.9 8.3 7.5 6.6 11.9 8 58.2.1 3.2 1 6.4 2.6 9.2s3.9 5.2 6.7 6.9 5.9 2.8 9.1 3 6.5-.3 9.5-1.6c52.9-23.2 53.6-25 62.6-22.6 153.2 42.2 319.4-55.9 319.4-231C504 110.3 396.6 8 256.6 8m149.2 185.1-73 115.6c-2.8 4.3-6.4 8.1-10.6 11s-9.1 4.8-14.1 5.8-10.3.8-15.3-.4-9.7-3.4-13.8-6.4l-58.1-43.5c-2.6-1.9-5.8-3-9-3s-6.4 1.1-9 3l-78.4 59.4c-10.5 7.9-24.2-4.6-17.1-15.7l73-115.6c2.8-4.3 6.4-8.1 10.6-11s9.1-4.8 14.1-5.8 10.3-.8 15.3.4 9.7 3.4 13.9 6.4l58.1 43.5c2.6 1.9 5.8 3 9 3s6.4-1.1 9-3l78.4-59.4c10.4-8 24.1 4.5 17.1 15.6z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="tel:+8801713095767" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157m-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1s56.2 81.2 56.1 130.5c0 101.8-84.9 184.6-186.6 184.6m101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8s-14.3 18-17.6 21.8c-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7s-12.5-30.1-17.1-41.2c-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2s-9.7 1.4-14.8 6.9c-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4s4.6-24.1 3.2-26.4c-1.3-2.5-5-3.9-10.5-6.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/raqueeb" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/raqueeb/" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://instagram.com/raqueeb" target="_blank" rel="noopener" title="instagram.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M224.3 141a115 115 0 1 0-.6 230 115 115 0 1 0 .6-230m-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1-.6-149.2m93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1-53.6 0m129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8M399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://facebook.com/raqueeb" target="_blank" rel="noopener" title="facebook.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256c0 120 82.7 220.8 194.2 248.5V334.2h-52.8V256h52.8v-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287v175.9C413.8 494.8 512 386.9 512 256"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.youtube.com/@raqueeb" target="_blank" rel="noopener" title="www.youtube.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M549.7 124.1c-6.2-23.7-24.8-42.3-48.3-48.6C458.9 64 288.1 64 288.1 64S117.3 64 74.7 75.5c-23.5 6.3-42 24.9-48.3 48.6C15 167 15 256.4 15 256.4s0 89.4 11.4 132.3c6.3 23.6 24.8 41.5 48.3 47.8C117.3 448 288.1 448 288.1 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zM232.2 337.6V175.2l142.7 81.2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "navigation.footer"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u0995\u09cd\u09b2\u09bf\u09aa\u09ac\u09cb\u09b0\u09cd\u09a1\u09c7 \u0995\u09aa\u09bf \u09b9\u09df\u09c7\u099b\u09c7", "clipboard.copy": "\u0995\u09cd\u09b2\u09bf\u09aa\u09ac\u09cb\u09b0\u09cd\u09a1\u09c7 \u0995\u09aa\u09bf \u0995\u09b0\u09c1\u09a8", "search.result.more.one": "\u098f\u0987 \u09aa\u09c3\u09b7\u09cd\u09a0\u09be\u09af\u09bc \u0986\u09b0\u0993 \u09e7\u099f\u09bf \u0986\u099b\u09c7", "search.result.more.other": "\u098f\u0987 \u09aa\u09c3\u09b7\u09cd\u09a0\u09be\u09af\u09bc \u0986\u09b0\u0993 #\u099f\u09bf \u0986\u099b\u09c7", "search.result.none": "\u0995\u09bf\u099b\u09c1 \u09aa\u09be\u0993\u09df\u09be \u09af\u09be\u09df\u09a8\u09bf", "search.result.one": "\u09e7 \u099f\u09be \u09a1\u0995\u09c1\u09ae\u09c7\u09a8\u09cd\u099f", "search.result.other": "# \u099f\u09be \u09a1\u0995\u09c1\u09ae\u09c7\u09a8\u09cd\u099f", "search.result.placeholder": "\u09b8\u09be\u09b0\u09cd\u099a \u099f\u09be\u0987\u09aa \u0995\u09b0\u09c1\u09a8", "search.result.term.missing": "\u0985\u09a8\u09c1\u09aa\u09b8\u09cd\u09a5\u09bf\u09a4", "select.version": "\u09b8\u0982\u09b8\u09cd\u0995\u09b0\u09a3 \u09a8\u09bf\u09b0\u09cd\u09ac\u09be\u099a\u09a8 \u0995\u09b0\u09c1\u09a3"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../javascripts/mermaid-loader.js"></script>
+      
+    
+  </body>
+</html>
