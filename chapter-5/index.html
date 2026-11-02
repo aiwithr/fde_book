@@ -3,30 +3,24 @@
 <html lang="bn" class="no-js">
   <head>
     
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল, লোকাল এলএলএম, অন-প্রেম অটোমেশন এবং ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। By Rakibul Hassan.">
-      
-      
-        <meta name="author" content="Rakibul Hassan (রকিবুল হাসান)">
-      
-      
-        <link rel="canonical" href="https://aiwithr.github.io/fde_book/chapter-5/">
-      
-      
-        <link rel="prev" href="../chapter-4/">
-      
-      
-        <link rel="next" href="../conclusion/">
-      
-      
-        
-      
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
-    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="author" content="Rakibul Hassan (রকিবুল হাসান)">
+  <meta name="creator" content="Rakibul Hassan">
+  <meta name="publisher" content="Rakibul Hassan">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="keywords" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Forward Deployed Engineering, Forward-Deployed Engineer, প্যাল্যান্টির, প্যালান্টির, Palantir, রকিবুল হাসান, Rakibul Hassan, aiwithr, লোকাল এলএলএম, local LLM, on-premise AI, অন-প্রেম এআই, Qwen 2.5, ডিপসিক, DeepSeek, ওপেনকোড হারনেস, OpenCode Harness, ফিল্ড ম্যানুয়াল, self-healing CI/CD, SDLC">
+  <meta name="description" content="চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - রকিবুল হাসান। সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি।">
+  
+    <link rel="canonical" href="https://aiwithr.github.io/fde_book/chapter-5/">
+  
+  
+    <link rel="prev" href="../chapter-4/">
+  
+  
+    <link rel="next" href="../conclusion/">
+  
+
     
       
         <title>চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং - হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)</title>
@@ -63,22 +57,14 @@
 
     
     
-  <!-- Core SEO & Identity -->
-  <meta name="author" content="Rakibul Hassan (রকিবুল হাসান)">
-  <meta name="creator" content="Rakibul Hassan">
-  <meta name="publisher" content="Rakibul Hassan">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="keywords" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড-ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Hands-on Forward Deployed Engineering, Forward Deployed Engineering, Forward-Deployed Engineer, প্যাল্যান্টির, প্যালান্টির, প্যালান্টিয়ার, Palantir, Palantir Technologies, গোথাম, Gotham, ইকো ও ডেল্টা টিম, Echo and Delta teams, রকিবুল হাসান, Rakibul Hassan, raqueeb, aiwithr, কৃত্রিম বুদ্ধিমত্তা, বাংলায় কৃত্রিম বুদ্ধিমত্তা, লোকাল এলএলএম, local LLM, on-premise AI, অন-প্রেম এআই, Qwen 2.5, ডিপসিক, DeepSeek, ওপেনকোড হারনেস, OpenCode Harness, ফিল্ড ম্যানুয়াল, Field Manual, enterprise automation, self-healing CI/CD, SDLC">
-  <meta name="description" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল, লোকাল এলএলএম, অন-প্রেম অটোমেশন এবং এন্টারপ্রাইজ ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। রকিবুল হাসানের বই।">
-
   <link rel="icon" href="https://aiwithr.github.io/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="https://aiwithr.github.io/favicon.ico" type="image/x-icon">
 
   <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
-  <meta property="og:site_name" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | কৃত্রিম বুদ্ধিমত্তা | বাংলায়">
-  <meta property="og:type" content="book">
+  <meta property="og:site_name" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | রকিবুল হাসান">
+  <meta property="og:type" content="article">
   <meta property="og:title" content="চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)">
-  <meta property="og:description" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল, লোকাল এলএলএম, অন-প্রেম অটোমেশন এবং ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। রকিবুল হাসানের বই।">
+  <meta property="og:description" content="চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।">
   <meta property="og:url" content="https://aiwithr.github.io/fde_book/chapter-5/">
   <meta property="og:locale" content="bn_BD">
   <meta property="og:image" content="https://aiwithr.github.io/fde_book/images/social-cover.png">
@@ -89,7 +75,7 @@
   <meta name="twitter:site" content="@raqueeb">
   <meta name="twitter:creator" content="@raqueeb">
   <meta name="twitter:title" content="চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং | হাতেকলমে FDE">
-  <meta name="twitter:description" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল ও অন-প্রেম এআই।">
+  <meta name="twitter:description" content="চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।">
   <meta name="twitter:image" content="https://aiwithr.github.io/fde_book/images/social-cover.png">
 
   <!-- Schema.org JSON-LD Structured Data -->
@@ -109,40 +95,6 @@
         "inLanguage": "bn"
       },
       {
-        "@type": "Book",
-        "@id": "https://aiwithr.github.io/fde_book/#book",
-        "name": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)",
-        "alternateName": [
-          "Hands-on Forward Deployed Engineering (FDE)",
-          "ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল",
-          "Forward Deployed Engineering Field Manual",
-          "FDE Field Manual",
-          "প্যাল্যান্টির ফিল্ড ইঞ্জিনিয়ারিং ম্যানুয়াল"
-        ],
-        "url": "https://aiwithr.github.io/fde_book/",
-        "image": "https://aiwithr.github.io/fde_book/images/social-cover.png",
-        "description": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): ল্যাব ছেড়ে ফিল্ডের রিয়েল ক্যাওসে সফটওয়্যার টিকিয়ে রাখার ব্যবহারিক গাইড। প্যাল্যান্টির (Palantir) মডেল, অন-প্রেমিসেস লোকাল এআই, ডিপসিক এবং সেলফ-হিলিং অটোমেশন প্লেবুক।",
-        "inLanguage": "bn",
-        "genre": [
-          "Software Engineering",
-          "Enterprise Architecture",
-          "Artificial Intelligence",
-          "Forward Deployed Engineering"
-        ],
-        "keywords": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Hands-on Forward Deployed Engineering, Forward Deployed Engineering, প্যাল্যান্টির, প্যালান্টির, Palantir, Palantir Technologies, কৃত্রিম বুদ্ধিমত্তা, লোকাল এলএলএম, রকিবুল হাসান",
-        "author": {
-          "@id": "https://aiwithr.github.io/#author"
-        },
-        "workExample": {
-          "@type": "SoftwareSourceCode",
-          "name": "FDE Companion Codebase",
-          "codeRepository": "https://github.com/raqueeb/fdebook_companion"
-        },
-        "isPartOf": {
-          "@id": "https://aiwithr.github.io/#website"
-        }
-      },
-      {
         "@type": "Person",
         "@id": "https://aiwithr.github.io/#author",
         "name": "Rakibul Hassan",
@@ -155,6 +107,40 @@
           "https://twitter.com/raqueeb",
           "https://linkedin.com/in/raqueeb/",
           "https://www.youtube.com/@raqueeb"
+        ]
+      },
+      {
+        "@type": "Chapter",
+        "@id": "https://aiwithr.github.io/fde_book/chapter-5/#chapter",
+        "url": "https://aiwithr.github.io/fde_book/chapter-5/",
+        "name": "চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং",
+        "inLanguage": "bn",
+        "isPartOf": {
+          "@type": "Book",
+          "@id": "https://aiwithr.github.io/fde_book/#book",
+          "name": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)",
+          "url": "https://aiwithr.github.io/fde_book/"
+        },
+        "author": {
+          "@id": "https://aiwithr.github.io/#author"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://aiwithr.github.io/fde_book/chapter-5/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "হোম",
+            "item": "https://aiwithr.github.io/fde_book/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "চ্যাপ্টার ৫: অর্গানাইজেশন স্কেলিং",
+            "item": "https://aiwithr.github.io/fde_book/chapter-5/"
+          }
         ]
       }
     ]
