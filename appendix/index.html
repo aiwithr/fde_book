@@ -909,6 +909,10 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">   </span><span class="c1"># উইন্ডোজে: .venv\Scripts\activate</span>
 </span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">উইন্ডোজে চালালে দুটো জিনিস মনে রাখবেন</p>
+<p>প্রথমত, উইন্ডোজে সাধারণত <code>python3</code> কমান্ড থাকে না। ওপরের ও নিচের সব কমান্ডে <code>python3</code>-এর জায়গায় <code>python</code> বা <code>py</code> লিখুন। দ্বিতীয়ত, চ্যাপ্টার ৪, ৫ ও কনক্লুশনের কয়েকটা স্ক্রিপ্ট টার্মিনালে বাংলা লেখা প্রিন্ট করে। Python 3.14 পর্যন্ত উইন্ডোজের ডিফল্ট কনসোল সেটা সামলাতে না পেরে <code>UnicodeEncodeError</code> দিয়ে থেমে যায়। তাই স্ক্রিপ্ট চালানোর আগে পাওয়ারশেলে একবার <code>$env:PYTHONUTF8=1</code> (কমান্ড প্রম্পটে <code>set PYTHONUTF8=1</code>) চালিয়ে নিন। Python 3.15 থেকে এটা ডিফল্ট, তখন আর লাগবে না।</p>
+</div>
 <h3 id="ollama-qwen-25">ধাপ ২: লোকাল এলএলএম (Ollama ও Qwen 2.5) সেটআপ<a class="headerlink" href="#ollama-qwen-25" title="Permanent link">&para;</a></h3>
 <p>চ্যাপ্টার ২ এবং চ্যাপ্টার ৩-এর লোকাল এআই ট্রায়াজ ও ইভ্যালুয়েশন হারনেস চালানোর জন্য <a href="https://ollama.com">https://ollama.com</a> থেকে নিজের ল্যাপটপে <code>Ollama</code> ইনস্টল করে নিন। এরপর টার্মিনালে মাত্র একটা কমান্ড চালিয়ে দেড় বিলিয়ন প্যারামিটারের হালকা মডেলটা নামিয়ে নিন (আর র‍্যাম বেশি থাকলে বাংলা মেসেজের জন্য <code>7B</code> মডেলও চালাতে পারেন, যেটা তুখোড় কাজ করে):</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># মাত্র ১ জিবির ৪-বিট কোয়ান্টাইজড লোকাল মডেল ডাউনলোড ও রান</span>
@@ -916,7 +920,7 @@
 </span></code></pre></div>
 <h3 id="_4">ধাপ ৩: চ্যাপ্টারভিত্তিক কমপ্যানিয়ন স্ক্রিপ্ট রান করা<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>রিপোজিটরির ভেতর প্রতিটা চ্যাপ্টারের কোড আলাদা ডিরেক্টরিতে রাখা আছে:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># ইন্ট্রোডাকশন: সাইলেন্ট চর্ন ও শ্যাডো আইটি ডিটেক্টর</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># ইন্ট্রোডাকশন: সাইলেন্ট চার্ন ও শ্যাডো আইটি ডিটেক্টর</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python3<span class="w"> </span>intro-silent-churn/detect_silent_abandonment.py
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># চ্যাপ্টার ১: ফিল্ড বটলনেক ডায়াগনস্টিক ও ওটিপি এসএলএ ট্র্যাকার</span>
@@ -963,7 +967,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>শ্যাডো সেশন (Shadow Session)</strong></td>
-<td style="text-align: left;">স্টাফকে কোনো প্রশ্ন বা জাজমেন্ট না করে তাঁর ডেস্কের পাশে চুপচাপ বসে তিনি আসলে কিভাবে কাজ করেন তা পর্যবেক্ষণ করা।</td>
+<td style="text-align: left;">স্টাফকে কোনো প্রশ্ন বা জাজমেন্ট না করে তাঁর ডেস্কের পাশে চুপচাপ বসে তিনি আসলে কিভাবে কাজ করেন তা চোখ-কান খোলা রেখে দেখা।</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>As-Is ও To-Be</strong></td>
@@ -971,7 +975,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>বটলনেক (Bottleneck)</strong></td>
-<td style="text-align: left;">পুরো কাজের প্রবাহের সেই নির্দিষ্ট ধাপ, যেখানে এসে ফাইল বা ডেটা আটকে থাকে এবং সবচেয়ে বেশি সময় নষ্ট হয়।</td>
+<td style="text-align: left;">পুরো ওয়ার্কফ্লোর সেই নির্দিষ্ট ধাপ, যেখানে এসে ফাইল বা ডেটা আটকে থাকে এবং সবচেয়ে বেশি সময় নষ্ট হয়।</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>ফলসিফায়েবল মেট্রিক</strong></td>
@@ -1003,7 +1007,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>সেলফ-হিলিং রোলব্যাক</strong></td>
-<td style="text-align: left;">নতুন আপডেট ডেপ্লয় করার পর হেলথ চেক ফেইল করলে মানুষের হস্তক্ষেপ ছাড়াই সিস্টেমের নিজে নিজে আগের ভালো ভার্সনে ফিরে যাওয়া।</td>
+<td style="text-align: left;">নতুন আপডেট ডেপ্লয় করার পর হেলথ চেক ফেইল করলে মানুষের হাত ছাড়াই সিস্টেমের নিজে নিজে আগের ভালো ভার্সনে ফিরে যাওয়া।</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>ওএলটি (OLT) ও এলওএস (LOS)</strong></td>
@@ -1011,7 +1015,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>অ্যাসিনক্রোনাস (<code>asyncio</code>)</strong></td>
-<td style="text-align: left;">একটা নেটওয়ার্ক কলের উত্তরের জন্য হাত গুটিয়ে বসে না থেকে একই সময়ে সমান্তরালভাবে হাজারটা টিকিট প্রসেস করার স্ট্রাটেজি।</td>
+<td style="text-align: left;">একটা নেটওয়ার্ক কলের উত্তরের জন্য হাত গুটিয়ে বসে না থেকে সেই অপেক্ষার ফাঁকে অন্য টিকিটগুলোর কাজ এগিয়ে রাখার স্ট্রাটেজি (এটা কনকারেন্সি, প্যারালেলিজম নয়)।</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>ওয়েব্রিজ (Weighbridge)</strong></td>
@@ -1019,7 +1023,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><strong>থ্রি-ওয়ে রিকনসিলিয়েশন ও টলারেন্স</strong></td>
-<td style="text-align: left;">কাস্টমস বিল অব এন্ট্রি, সাপ্লায়ার ইনভয়েস এবং ওয়েব্রিজ স্কেলের স্লিপ - এই তিন ডকুমেন্টের হিসাব মেলানো এবং বাস্তবসম্মত ১% ওজনের ছাড় (<code>Tolerance</code>) মেনে নেওয়া।</td>
+<td style="text-align: left;">কাস্টমস বিল অব এন্ট্রি, সাপ্লায়ার ইনভয়েস এবং ওয়েব্রিজ স্কেলের স্লিপ - এই তিন ডকুমেন্টের হিসাব মেলানো এবং ক্লায়েন্টের ঠিক করে দেয়া ওজনের ছাড় (<code>Tolerance</code>, যেমন ১%) মেনে নেওয়া।</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>ফিল্ড-টু-কোর লুপ</strong></td>
