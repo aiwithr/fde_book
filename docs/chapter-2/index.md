@@ -81,6 +81,7 @@ def init_local_wal_queue(db_path: str = "fde_queue.db") -> sqlite3.Connection:
 # ফিল্ড টেস্ট: লোকাল কিউতে মেসেজ ইনসার্ট ও স্ট্যাটাস যাচাই
 db = init_local_wal_queue()
 db.execute("INSERT INTO ticket_queue (raw_msg) VALUES (?)", ("চালানে ওজনের গরমিল",))
+db.commit()  # ডেটা ডিস্কে সেভ করা হলো
 mode = db.execute("PRAGMA journal_mode;").fetchone()[0]
 print(f"Queue Mode: {mode.upper()} | Pending Tickets: {db.execute('SELECT count(*) FROM ticket_queue').fetchone()[0]}")
 ```
