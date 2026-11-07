@@ -914,9 +914,12 @@
 <p>প্রথমত, উইন্ডোজে সাধারণত <code>python3</code> কমান্ড থাকে না। ওপরের ও নিচের সব কমান্ডে <code>python3</code>-এর জায়গায় <code>python</code> বা <code>py</code> লিখুন। দ্বিতীয়ত, চ্যাপ্টার ৪, ৫ ও কনক্লুশনের কয়েকটা স্ক্রিপ্ট টার্মিনালে বাংলা লেখা প্রিন্ট করে। Python 3.14 পর্যন্ত উইন্ডোজের ডিফল্ট কনসোল সেটা সামলাতে না পেরে <code>UnicodeEncodeError</code> দিয়ে থেমে যায়। তাই স্ক্রিপ্ট চালানোর আগে পাওয়ারশেলে একবার <code>$env:PYTHONUTF8=1</code> (কমান্ড প্রম্পটে <code>set PYTHONUTF8=1</code>) চালিয়ে নিন। Python 3.15 থেকে এটা ডিফল্ট, তখন আর লাগবে না।</p>
 </div>
 <h3 id="ollama-qwen-25">ধাপ ২: লোকাল এলএলএম (Ollama ও Qwen 2.5) সেটআপ<a class="headerlink" href="#ollama-qwen-25" title="Permanent link">&para;</a></h3>
-<p>চ্যাপ্টার ২ এবং চ্যাপ্টার ৩-এর লোকাল এআই ট্রায়াজ ও ইভ্যালুয়েশন হারনেস চালানোর জন্য <a href="https://ollama.com">https://ollama.com</a> থেকে নিজের ল্যাপটপে <code>Ollama</code> ইনস্টল করে নিন। এরপর টার্মিনালে মাত্র একটা কমান্ড চালিয়ে দেড় বিলিয়ন প্যারামিটারের হালকা মডেলটা নামিয়ে নিন (আর র‍্যাম বেশি থাকলে বাংলা মেসেজের জন্য <code>7B</code> মডেলও চালাতে পারেন, যেটা তুখোড় কাজ করে):</p>
+<p>চ্যাপ্টার ২, ৩ ও ৪-এর লোকাল এআই ট্রায়াজ, ইভ্যালুয়েশন হারনেস আর ক্রু-মেসেজ পার্সার চালানোর জন্য <a href="https://ollama.com">https://ollama.com</a> থেকে নিজের ল্যাপটপে <code>Ollama</code> ইনস্টল করে নিন। এরপর টার্মিনালে মাত্র একটা কমান্ড চালিয়ে দেড় বিলিয়ন প্যারামিটারের হালকা মডেলটা নামিয়ে নিন (আর র‍্যাম বেশি থাকলে বাংলা মেসেজের জন্য <code>7B</code> মডেলও চালাতে পারেন, যেটা তুখোড় কাজ করে):</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># মাত্র ১ জিবির ৪-বিট কোয়ান্টাইজড লোকাল মডেল ডাউনলোড ও রান</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5:1.5b
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># চ্যাপ্টার ৪-এর স্লিপের ছবি পড়ার ভিশন মডেল (প্রায় ৩ জিবি)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>ollama<span class="w"> </span>pull<span class="w"> </span>qwen2.5vl:3b
 </span></code></pre></div>
 <h3 id="_4">ধাপ ৩: চ্যাপ্টারভিত্তিক কমপ্যানিয়ন স্ক্রিপ্ট রান করা<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>রিপোজিটরির ভেতর প্রতিটা চ্যাপ্টারের কোড আলাদা ডিরেক্টরিতে রাখা আছে:</p>
@@ -936,15 +939,20 @@
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>python3<span class="w"> </span>ch03-resilient-pipeline/eval_harness.py
 </span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
 </span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># চ্যাপ্টার ৪ (ট্র্যাক এ ও বি): আইএসপি রাউটিং ওয়ার্কার, পোর্ট রিকনসিলার ও ম্যানেজার সামারি</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>python3<span class="w"> </span>ch04-isp-routing-worker/worker.py
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/audit.py
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/manager_hero_report.py
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="c1"># চ্যাপ্টার ৫ ও কনক্লুশন: ফিল্ড-টু-কোর ইঞ্জিন, কুইক-উইন স্কোরার ও হেলথ চেক ওয়াচডগ</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>python3<span class="w"> </span>ch05-org-scaling/field_to_core_module.py
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>python3<span class="w"> </span>ch05-org-scaling/quick_win_scorer.py
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>python3<span class="w"> </span>conclusion-handover/health_check.py
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>python3<span class="w"> </span>conclusion-handover/hypercare_watchdog.py
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>python3<span class="w"> </span>ch04-isp-routing-worker/correlator.py
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>python3<span class="w"> </span>ch04-isp-routing-worker/locator.py
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>python3<span class="w"> </span>ch04-isp-routing-worker/worker.py
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>python3<span class="w"> </span>ch04-isp-routing-worker/crew_update.py
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/audit.py
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/make_sample_slip.py<span class="w">   </span><span class="c1"># নমুনা ওয়েব্রিজ স্লিপের ছবি (pip install pillow)</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/slip_vision.py<span class="w">        </span><span class="c1"># আগে: ollama pull qwen2.5vl:3b</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>python3<span class="w"> </span>ch04-supply-chain-reconciler/manager_hero_report.py
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="c1"># চ্যাপ্টার ৫ ও কনক্লুশন: ফিল্ড-টু-কোর ইঞ্জিন, কুইক-উইন স্কোরার ও হেলথ চেক ওয়াচডগ</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>python3<span class="w"> </span>ch05-org-scaling/field_to_core_module.py
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>python3<span class="w"> </span>ch05-org-scaling/quick_win_scorer.py
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>python3<span class="w"> </span>conclusion-handover/health_check.py
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>python3<span class="w"> </span>conclusion-handover/hypercare_watchdog.py
 </span></code></pre></div>
 <hr />
 <h2 id="glossary">৩. ফিল্ড ইঞ্জিনিয়ারিং ও এআই ডিকশনারি (Glossary)<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h2>
@@ -1010,8 +1018,24 @@
 <td style="text-align: left;">নতুন আপডেট ডেপ্লয় করার পর হেলথ চেক ফেইল করলে মানুষের হাত ছাড়াই সিস্টেমের নিজে নিজে আগের ভালো ভার্সনে ফিরে যাওয়া।</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>ওএলটি (OLT) ও এলওএস (LOS)</strong></td>
-<td style="text-align: left;">আইএসপির মেইন অপটিক্যাল সুইচবোর্ড (<code>OLT</code>) এবং ফাইবার ক্যাবল কাটা পড়লে সিগন্যাল বিচ্ছিন্ন হওয়ার লাল অ্যালার্ম (<code>LOS</code>)।</td>
+<td style="text-align: left;"><strong>ওএলটি, পন পোর্ট ও ওএনইউ</strong></td>
+<td style="text-align: left;">আইএসপির পপ অফিসের মূল অপটিক্যাল যন্ত্র (<code>OLT</code>), তার একেকটা পোর্ট (<code>PON port</code>) থেকে বেরোনো ফাইবার প্রাইমারি ও সেকেন্ডারি স্প্লিটারে ভাগ হয়ে বাসার ছোট বক্সে (<code>ONU</code>) পৌঁছায়।</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>এলওএস (<code>LOSi</code>) ও ডাইং গ্যাস্প (<code>DGi</code>)</strong></td>
+<td style="text-align: left;">ওএলটি কোনো ওএনইউ থেকে আলো না পেলে <code>LOSi</code>; ওএনইউ পাওয়ার হারানোর আগে শেষ মেসেজ পাঠালে <code>DGi</code>। <code>LOSi</code> আছে কিন্তু <code>DGi</code> নেই মানে ফাইবারের দোষ, দুটোই থাকলে কারেন্টের।</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ওটিডিআর (OTDR)</strong></td>
+<td style="text-align: left;">ফাইবারে লেজার পালস পাঠিয়ে ফেরার সময় থেকে কাটা জায়গার দূরত্ব মাপার যন্ত্র; পপে বসানো অটোমেটিক বক্স ভার্সনটা এনএমএসের কমান্ডে লাইভ লাইনে টেস্ট চালায়। প্রাইমারি স্প্লিটারের পরে এটা অন্ধ।</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ভিশন মডেল (Vision Model)</strong></td>
+<td style="text-align: left;">যে এলএলএম টেক্সটের সাথে ছবিও দেখতে পারে (যেমন <code>qwen2.5vl</code>); ফোনে তোলা স্লিপ বা ফর্মের ছবি থেকে সংখ্যা তোলার কাজে, তবে তার প্রতিটা আউটপুট ডিটারমিনিস্টিক গার্ডরেইলে যাচাই হয়।</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>প্রাইমারি ও সেকেন্ডারি স্প্লিটার</strong></td>
+<td style="text-align: left;">রাস্তার ক্যাবিনেটে প্রথম ভাগ (<code>1:4</code> বা <code>1:8</code>) আর মহল্লার বক্সে দ্বিতীয় ভাগ (<code>1:8</code> বা <code>1:16</code>); প্রাইমারির পরে ওটিডিআর আর কাজ করে না।</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>অ্যাসিনক্রোনাস (<code>asyncio</code>)</strong></td>
@@ -1232,7 +1256,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "navigation.footer"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u0995\u09cd\u09b2\u09bf\u09aa\u09ac\u09cb\u09b0\u09cd\u09a1\u09c7 \u0995\u09aa\u09bf \u09b9\u09df\u09c7\u099b\u09c7", "clipboard.copy": "\u0995\u09cd\u09b2\u09bf\u09aa\u09ac\u09cb\u09b0\u09cd\u09a1\u09c7 \u0995\u09aa\u09bf \u0995\u09b0\u09c1\u09a8", "search.result.more.one": "\u098f\u0987 \u09aa\u09c3\u09b7\u09cd\u09a0\u09be\u09af\u09bc \u0986\u09b0\u0993 \u09e7\u099f\u09bf \u0986\u099b\u09c7", "search.result.more.other": "\u098f\u0987 \u09aa\u09c3\u09b7\u09cd\u09a0\u09be\u09af\u09bc \u0986\u09b0\u0993 #\u099f\u09bf \u0986\u099b\u09c7", "search.result.none": "\u0995\u09bf\u099b\u09c1 \u09aa\u09be\u0993\u09df\u09be \u09af\u09be\u09df\u09a8\u09bf", "search.result.one": "\u09e7 \u099f\u09be \u09a1\u0995\u09c1\u09ae\u09c7\u09a8\u09cd\u099f", "search.result.other": "# \u099f\u09be \u09a1\u0995\u09c1\u09ae\u09c7\u09a8\u09cd\u099f", "search.result.placeholder": "\u09b8\u09be\u09b0\u09cd\u099a \u099f\u09be\u0987\u09aa \u0995\u09b0\u09c1\u09a8", "search.result.term.missing": "\u0985\u09a8\u09c1\u09aa\u09b8\u09cd\u09a5\u09bf\u09a4", "select.version": "\u09b8\u0982\u09b8\u09cd\u0995\u09b0\u09a3 \u09a8\u09bf\u09b0\u09cd\u09ac\u09be\u099a\u09a8 \u0995\u09b0\u09c1\u09a3"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
         <script src="../javascripts/mermaid-loader.js"></script>
       
