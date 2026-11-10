@@ -7,7 +7,7 @@
   <meta name="creator" content="Rakibul Hassan">
   <meta name="publisher" content="Rakibul Hassan">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="keywords" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Forward Deployed Engineering, Forward-Deployed Engineer, প্যাল্যান্টির, প্যালান্টির, Palantir, রকিবুল হাসান, Rakibul Hassan, aiwithr, লোকাল এলএলএম, local LLM, on-premise AI, অন-প্রেম এআই, Qwen 2.5, ডিপসিক, DeepSeek, ওপেনকোড হারনেস, OpenCode Harness, ফিল্ড ম্যানুয়াল, self-healing CI/CD, SDLC">
+  <meta name="keywords" content="FDE book bangla, Forward Deployed Engineering Bangla, FDE Playbook, Forward Deployed Engineering, FDE, Hands-on FDE, Palantir FDE Model, Palantir Technologies, hatekolome forward deployed engineering, হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই বই বাংলা, Rakibul Hassan, রকিবুল হাসান, aiwithr, local LLM, on-premise AI, লোকাল এলএলএম, অন-প্রেম এআই, Qwen 2.5, DeepSeek, OpenCode Harness, self-healing CI/CD, enterprise software architecture">
   <meta name="description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - রকিবুল হাসান। সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি।{% else %}{{ config.site_description }}{% endif %}">
   {% if page.canonical_url %}
     <link rel="canonical" href="{{ page.canonical_url }}">
@@ -27,7 +27,7 @@
   <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
   <meta property="og:site_name" content="হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | রকিবুল হাসান">
   <meta property="og:type" content="{% if page.is_homepage %}book{% else %}article{% endif %}">
-  <meta property="og:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE){% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | প্যাল্যান্টির মডেল ও অন-প্রেম এআই | By Rakibul Hassan{% endif %}">
+  <meta property="og:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE){% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | Forward Deployed Engineering Bangla Book | By Rakibul Hassan{% endif %}">
   <meta property="og:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% elif page and page.title and not page.is_homepage %}{{ page.title }}: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।{% else %}{{ config.site_description }}{% endif %}">
   <meta property="og:url" content="{{ page.canonical_url }}">
   <meta property="og:locale" content="bn_BD">
@@ -38,7 +38,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@raqueeb">
   <meta name="twitter:creator" content="@raqueeb">
-  <meta name="twitter:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | হাতেকলমে FDE{% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | By Rakibul Hassan{% endif %}">
+  <meta name="twitter:title" content="{% if page and page.meta and page.meta.title %}{{ page.meta.title }}{% elif page and page.title and not page.is_homepage %}{{ page.title }} | FDE Book Bangla{% else %}হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) | Forward Deployed Engineering Bangla Book{% endif %}">
   <meta name="twitter:description" content="{% if page and page.meta and page.meta.description %}{{ page.meta.description }}{% elif page and page.title and not page.is_homepage %}{{ page.title }}: সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। রকিবুল হাসানের বই।{% else %}{{ config.site_description }}{% endif %}">
   <meta name="twitter:image" content="https://aiwithr.github.io/fde_book/images/social-cover.png">
 
@@ -78,15 +78,19 @@
         "@id": "https://aiwithr.github.io/fde_book/#book",
         "name": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE)",
         "alternateName": [
+          "FDE book bangla",
+          "Forward Deployed Engineering Bangla",
+          "FDE Playbook Bangla",
           "Hands-on Forward Deployed Engineering (FDE)",
-          "ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE) - ফিল্ড ম্যানুয়াল",
+          "hatekolome forward deployed engineering",
           "Forward Deployed Engineering Field Manual",
           "FDE Field Manual",
+          "Palantir FDE Model Bangla",
           "প্যাল্যান্টির ফিল্ড ইঞ্জিনিয়ারিং ম্যানুয়াল"
         ],
         "url": "https://aiwithr.github.io/fde_book/",
         "image": "https://aiwithr.github.io/fde_book/images/social-cover.png",
-        "description": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): সফটওয়্যার আর্কিটেকচার থেকে কাস্টমারের গ্রাউন্ড রিয়েলিটি। প্যাল্যান্টির (Palantir) মডেল, লোকাল এলএলএম, অন-প্রেম অটোমেশন এবং ফিল্ড ইঞ্জিনিয়ারিং প্লেবুক। By Rakibul Hassan.",
+        "description": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং (FDE): Forward Deployed Engineering Bangla book, FDE Playbook, Palantir Model By Rakibul Hassan.",
         "inLanguage": "bn",
         "genre": [
           "Software Engineering",
@@ -94,7 +98,7 @@
           "Artificial Intelligence",
           "Forward Deployed Engineering"
         ],
-        "keywords": "হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, Hands-on Forward Deployed Engineering, Forward Deployed Engineering, প্যাল্যান্টির, প্যালান্টির, Palantir, Palantir Technologies, কৃত্রিম বুদ্ধিমত্তা, লোকাল এলএলএম, রকিবুল হাসান",
+        "keywords": "FDE book bangla, Forward Deployed Engineering Bangla, FDE Playbook, Hands-on Forward Deployed Engineering, Palantir FDE Model, hatekolome forward deployed engineering, হাতেকলমে ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, ফরওয়ার্ড ডেপ্লয়েড ইঞ্জিনিয়ারিং, এফডিই, FDE, রকিবুল হাসান, Rakibul Hassan, local LLM, on-premise AI",
         "author": {
           "@id": "https://aiwithr.github.io/#author"
         },
